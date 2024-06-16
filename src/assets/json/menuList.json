@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/table",
+    "name": "table",
+    "title": "数据表格",
+    "type": 1,
+    "icon": "Tickets",
+    "idx": 1,
+    "children": [
+      {
+        "path": "/table/proTable",
+        "name": "/table/proTable",
+        "title": "超级表格",
+        "type": 2,
+        "keepAlive": true,
+        "visible": true,
+        "idx": 1,
+        "icon": ""
+      },
+      {
+        "path": "/table/baseTable",
+        "name": "/table/baseTable",
+        "title": "基础表格",
+        "type": 2,
+        "keepAlive": true,
+        "visible": true,
+        "idx": 2,
+        "icon": ""
+      }
+    ]
+  }
+]

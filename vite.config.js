@@ -19,7 +19,6 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      // "~/": `${path.resolve(__dirname, "src")}/`,
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
     extensions: ['.js', '.json', '.jsx', '.vue'],
@@ -33,7 +32,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'vue-elm',
+    outDir: 'dist',
     minify: 'esbuild', //esbuild fast；terser can remove console
   },
 })

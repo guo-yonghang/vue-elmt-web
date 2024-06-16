@@ -5,5 +5,6 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 export default pinia
-export * from './modules/tab'
-export * from './modules/user'
+export * from './app'
+export * from './tab'
+export * from './user'

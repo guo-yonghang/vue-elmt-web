@@ -1,0 +1,43 @@
+.flxc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flx {
+  display: flex;
+}
+
+.flx-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flx1 {
+  flex: 1;
+}
+
+.jstb {
+  justify-content: space-between;
+}
+
+.jstc {
+  justify-content: center;
+}
+
+.alic {
+  align-items: center;
+}
+
+.sle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mle {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}

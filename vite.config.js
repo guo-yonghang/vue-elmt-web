@@ -21,12 +21,11 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
-    extensions: ['.js', '.json', '.jsx', '.vue'],
+    // extensions: ['.js', '.json', '.jsx', '.vue'],
   },
   css: {
     preprocessorOptions: {
       scss: {
-        // additionalData: `@use "~/styles/element/index.scss" as *;`,
         additionalData: `@use "@/styles/element/index.scss" as *;`,
       },
     },

@@ -1,20 +1,30 @@
 <template>
   <el-container class="layout-container">
-    <el-aside width="210px">
+    <el-aside :width="width">
       <Aside />
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <Header />
+      </el-header>
       <el-main>
-        <router-view />
+        <Main />
       </el-main>
-      <el-footer>Footer</el-footer>
+      <el-footer> 2024 © Vue-Elm By 逆境生长. </el-footer>
     </el-container>
   </el-container>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useAppStore } from '@/store/index'
 import Aside from './Aside.vue'
+import Header from './Header.vue'
+import Main from './Main.vue'
+
+const appStore = useAppStore()
+
+const width = computed(() => (appStore.isCollapse ? '65px' : '210px'))
 </script>
 
 <style lang="scss" scoped>
@@ -24,6 +34,7 @@ import Aside from './Aside.vue'
 
   .el-aside {
     border-right: 1px solid var(--el-border-color);
+    overflow: hidden;
     user-select: none;
     transition: width 0.3s ease;
   }
@@ -32,9 +43,18 @@ import Aside from './Aside.vue'
     height: 55px;
   }
 
+  .el-main {
+    overflow-x: hidden;
+    padding: 10px 12px;
+    background-color: var(--el-bg-color-page);
+  }
+
   .el-footer {
     height: 40px;
+    line-height: 40px;
+    text-align: center;
     background-color: #eee;
+    font-size: 12px;
   }
 }
 </style>

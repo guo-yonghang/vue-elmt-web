@@ -8,7 +8,7 @@ export const useAppStore = defineStore({
     isCollapse: false,
     primary: DEFAULT_PRIMARY,
     isDark: false,
-    language: 'zhCn',
+    language: 'zh', // 'zh' | 'en'
     comSize: 'default', //'large' | 'default' | 'small'
   }),
   getters: {},
@@ -16,6 +16,6 @@ export const useAppStore = defineStore({
   persist: {
     key: 'persist-app',
     storage: window.localStorage,
-    paths: ['primary', 'isDark', 'zhCn'],
+    paths: ['primary', 'isDark', 'language', 'comSize'],
   },
 })

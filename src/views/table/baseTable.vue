@@ -1,4 +1,8 @@
-<template>base-table</template>
+<template>
+  <div>
+    <el-date-picker></el-date-picker>
+  </div>
+</template>
 
 <script setup></script>
 

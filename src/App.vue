@@ -7,28 +7,23 @@
 <script setup>
 import { computed } from 'vue'
 import { useAppStore } from '@/store/index'
+import { useSetting } from '@/hooks/useSetting'
 
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
 
 const appStore = useAppStore()
+const { updatePrimary, updateLanguage } = useSetting()
+
+//初始化
+updatePrimary()
+updateLanguage()
 
 //语言
-const locale = computed(() => (appStore.language === 'zhCn' ? zhCn : en))
+const locale = computed(() => (appStore.language === 'zh' ? zhCn : en))
 
 //组件大小
 const size = computed(() => appStore.comSize)
-
-// import { useDark, useToggle } from '@vueuse/core'
-// import { useTheme } from '@/hooks/useTheme'
-
-// const isDark = useDark()
-// const toggleDark = useToggle(isDark)
-// const { onChangePrimary } = useTheme()
-
-// const toggleTheme = () => {
-//   onChangePrimary('#dda765')
-// }
 </script>
 
 <style scoped lang="scss"></style>

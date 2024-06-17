@@ -8,8 +8,8 @@
     "idx": 1,
     "children": [
       {
-        "path": "/table/proTable",
-        "name": "/table/proTable",
+        "path": "/table/superTable",
+        "name": "/table/superTable",
         "title": "超级表格",
         "type": 2,
         "keepAlive": true,

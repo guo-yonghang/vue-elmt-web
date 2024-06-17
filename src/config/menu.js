@@ -5,14 +5,12 @@ import Layout from '@/layout/index.vue'
 import menuList from '@/assets/json/menuList.json'
 import resultRoutes from '@/assets/json/resultRoutes.json'
 
-// const views = import.meta.glob('../views/**/*.vue', { eager: true, import: 'default' })
 const views = import.meta.glob('../views/**/*.vue')
 
 //初始化layout路由
 export const initLayoutRoute = () => {
   const appStore = useAppStore()
   const children = getLayoutChilren(menuList.concat(resultRoutes))
-  console.log(children)
   const layout = {
     path: '/layout',
     name: 'layout',
@@ -20,7 +18,6 @@ export const initLayoutRoute = () => {
     redirect: children[0].name,
     children,
   }
-  console.log('layouts', layout)
   router.addRoute(layout)
   appStore.layoutRoute = layout
 }
@@ -41,8 +38,7 @@ const getLayoutChilren = (list) => {
       res.push(obj)
     }
     if (type === 1 && children.length) {
-      const objs = getLayoutChilren(children)
-      res.push(...objs)
+      res.push(...getLayoutChilren(children))
     }
   }
   return res

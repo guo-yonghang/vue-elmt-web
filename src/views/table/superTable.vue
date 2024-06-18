@@ -44,10 +44,11 @@ const tableColumn = [
     width: 120,
   },
   {
+    prop: 'opration',
     label: 'Operations',
     width: 120,
     fixed: 'right',
-    render: () => {
+    render: (scope) => {
       return (
         <>
           <ElButton link type="primary" size="small">

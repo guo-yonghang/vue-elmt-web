@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
       "allowJs": true,
-      "target": "es5",
-      "module": "esnext",
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "Node",
       "baseUrl": "./",
-      "moduleResolution": "node",
       "paths": {
         "@/*": [
           "src/*"
@@ -14,10 +14,8 @@
         ]
       },
       "lib": [
-        "esnext",
-        "dom",
-        "dom.iterable",
-        "scripthost"
+        "ESNext",
+        "DOM",
       ]
     }
   }

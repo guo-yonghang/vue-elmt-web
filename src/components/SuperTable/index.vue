@@ -1,23 +1,24 @@
 <template>
   <div>
-    <el-table ref="TableContext" v-bind="$attrs" :data="processTableData" :rowKey="rowKey">
+    <SearchForm />
+    <el-table ref="tableContext" v-bind="$attrs" :data="processTableData" :rowKey="rowKey">
       <!-- 默认插槽 -->
       <slot />
       <!-- 列配置 -->
-      <template v-for="item in columns" :key="item">
-        <el-table-column v-if="item.type && columnTypes.includes(item.type)" v-bind="item" :align="item.align ?? 'center'" :reserve-selection="item.type == 'selection'">
+      <template v-for="item in tableColumns" :key="item">
+        <el-table-column v-if="item.type && columnTypes.includes(item.type)" v-bind="item" :align="item.align || 'center'" :reserve-selection="item.type == 'selection'">
           <template #default="scope">
             <!-- expand -->
-            <template v-if="item.type == 'expand'">
+            <template v-if="item.type === 'expand'">
               <component :is="item.render" v-bind="scope" v-if="item.render" />
               <slot v-else :name="item.type" v-bind="scope" />
             </template>
             <!-- radio -->
-            <el-radio v-if="item.type == 'radio'" v-model="radio" :label="scope.row[rowKey]">
+            <el-radio v-if="item.type === 'radio'" v-model="radio" :label="scope.row[rowKey]">
               <i></i>
             </el-radio>
             <!-- sort -->
-            <el-tag v-if="item.type == 'sort'" class="move">
+            <el-tag v-if="item.type === 'sort'" class="move">
               <el-icon> <DCaret /></el-icon>
             </el-tag>
           </template>
@@ -34,34 +35,52 @@
         <slot name="append" />
       </template>
     </el-table>
+    <!-- 分页组件 -->
+    <slot nam="pagination">
+      <Pagination v-if="pagination" :pageable="pageable" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange" />
+    </slot>
   </div>
 </template>
 
 <script setup name="SuperTable">
-import { ref, computed, onMounted } from 'vue'
+import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
+import { useTableHook } from './js/hook'
+import { properties } from './js/props'
 import TableColumn from './components/TableColumn.vue'
-import properties from './properties'
+import Pagination from './components/Pagination.vue'
+import SearchForm from '@/components/SearchForm/index.vue'
+import ColSetting from './components/ColSetting.vue'
 import Sortable from 'sortablejs'
 
 const props = defineProps(properties)
-const emits = defineEmits(['dargSort'])
+const emits = defineEmits(['search', 'reset', 'dargSort'])
 
+//eltable实例
+const tableContext = ref()
+
+//使用hook函数
+const { tableData, pageable, searchParam, searchInitParam, getTableList, search, reset, handleSizeChange, handleCurrentChange } = useTableHook(
+  props.requestApi,
+  props.initParams,
+  props.pagination,
+  props.dataCallBack,
+  props.requestError,
+)
+
+//特殊列配置类型
 const columnTypes = ['selection', 'radio', 'index', 'expand', 'sort']
 
+//单选选中的rowKey
 const radio = ref('')
 
-//
-const tableData = ref([])
-const getTableData = () => {}
-const pageable = ref({ total: 10, pageNum: 1, pageSize: 10 })
-//
-
+//表格数据初处理
 const processTableData = computed(() => {
   if (!props.data) return tableData.value
-  return props.data
+  if (!props.pagination) return props.data
+  return props.data.slice((pageable.value.pageNum - 1) * pageable.value.pageSize, pageable.value.pageSize * pageable.value.pageNum)
 })
 
-//拖拽排序
+//行拖拽排序
 const dragSort = () => {
   const tbody = document.querySelector('.el-table__body-wrapper tbody')
   Sortable.create(tbody, {
@@ -78,11 +97,93 @@ const dragSort = () => {
 //初始化表格数据 && 拖拽排序
 onMounted(() => {
   dragSort()
-  props.autoRequest && getTableData()
+  props.autoRequest && getTableList()
   props.data && (pageable.value.total = props.data.length)
 })
 
-console.log('props', props)
+//接收columns设置为响应式
+const tableColumns = reactive(props.columns)
+
+//扁平化以便于colSetting
+const flatColumns = computed(() => flatColumnsFunc(tableColumns))
+
+//enumMap 存储所有的emnu值
+const enumMap = ref(new Map())
+const setEnumMap = async ({ prop, enum: enumValue }) => {
+  if (!enumValue) return
+  if (enumMap.value.has(prop) && (typeof enumValue === 'function' || enumMap.value.get(prop) === enumValue)) return
+  if (typeof enumMap !== 'function') return enumMap.value.set(prop, unref(enumValue))
+  enumMap.value.set(prop, [])
+  const { data } = await enumValue()
+  enumMap.value.set(prop, data)
+}
+
+provide('enumMap', enumMap)
+
+//扁平化columns数组
+const flatColumnsFunc = (columns) => {
+  const flatArr = []
+  columns.forEach(async (col) => {
+    if (col._children?.length) flatArr.push(...flatColumnsFunc(col._children))
+    flatArr.push(col)
+
+    // column 添加默认 isShow && isFilterEnum 属性值
+    col.isShow = col.isShow || true
+    col.isFilterEnum = col.isFilterEnum || true
+
+    // 设置 enumMap
+    await setEnumMap(col)
+  })
+  return flatArr.filter((item) => !item._children?.length)
+}
+
+//过滤需要搜索的配置项 && 排序
+const searchColumns = computed(() => {
+  return flatColumns.value?.filter((item) => item.search?.el || item.search?.render).sort((a, b) => a.search.order - b.search.order)
+})
+
+//搜索表单默认排序 && 搜索表单项的默认值
+searchColumns.value?.forEach((column, index) => {
+  column.search.order = column.search?.order || index + 2
+  const key = column.search?.key || handleProp(column.prop)
+  const defaultValue = column.search?.defaultValue
+  if (defaultValue !== undefined && defaultValue !== null) {
+    searchInitParam.value[key] = defaultValue
+    searchParam.value[key] = defaultValue
+  }
+})
+
+//列设置相关==>过滤掉不需要的列
+const colsetContext = ref()
+const colsetColumns = tableColumns.filter((item) => {
+  const { type, prop, isShow } = item
+  return !columnTypes.includes(type) && prop !== 'operation' && isShow
+})
+const openColSet = () => colsetContext.value.open()
+
+//搜索
+const _search = () => {
+  search()
+  emits('search')
+}
+
+//重置
+const _reset = () => {
+  reset()
+  emits('reset')
+}
+
+//清空选中数据列表
+const clearSelection = () => tableContext.value.clearSelection()
+
+defineExpose({
+  tableContext,
+  pageable,
+  enumMap,
+  radio,
+  tableData: processTableData,
+})
+console.log('ProTable-props', props)
 </script>
 
 <style scoped lang="scss"></style>

@@ -1,4 +1,4 @@
-export default {
+export const properties = {
   rowKey: {
     type: String,
     default: 'id',
@@ -11,11 +11,7 @@ export default {
     type: Array,
     default: () => [],
   },
-  searchs: {
-    type: Array,
-    default: () => [],
-  },
-  params: {
+  initParams: {
     type: Object,
     default: () => ({}),
   },
@@ -26,5 +22,21 @@ export default {
   showUtil: {
     type: Boolean,
     default: true,
+  },
+  autoRequest: {
+    type: Boolean,
+    default: true,
+  },
+  requestApi: {
+    type: Function,
+    default: () => {},
+  },
+  dataCallBack: {
+    type: Function,
+    default: () => {},
+  },
+  requestError: {
+    type: Function,
+    default: () => {},
   },
 }

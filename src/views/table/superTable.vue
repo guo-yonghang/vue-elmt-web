@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-box">
     <SuperTable :data="tableData" :columns="tableColumn" stripe />
   </div>
 </template>
@@ -22,6 +22,10 @@ const tableColumn = [
     prop: 'name',
     label: 'Name',
     width: 120,
+    search: {
+      el: 'input',
+      label: '姓名',
+    },
   },
   {
     prop: 'state',

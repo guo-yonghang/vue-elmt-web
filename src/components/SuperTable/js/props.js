@@ -19,9 +19,9 @@ export const properties = {
     type: Boolean,
     default: true,
   },
-  showUtil: {
-    type: Boolean,
-    default: true,
+  toolButton: {
+    type: Array,
+    default: () => ['refresh', 'setting', 'search'],
   },
   autoRequest: {
     type: Boolean,

@@ -1,4 +1,7 @@
 @use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;
+@use './common.scss' as *;
+@use './reset.scss' as *;
+@use '@/components/SuperTable/index.scss' as *;
 
 @for $i from 12 through 30 {
   .fs-#{$i} {

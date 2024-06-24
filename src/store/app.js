@@ -5,6 +5,7 @@ export const useAppStore = defineStore({
   id: 'vue-elm-app',
   state: () => ({
     layoutRoute: null,
+    previewRoute: null,
     isCollapse: false,
     primary: DEFAULT_PRIMARY,
     isDark: false,

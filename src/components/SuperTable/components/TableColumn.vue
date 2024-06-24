@@ -64,5 +64,3 @@ const RenderTableColumn = (item) => {
   )
 }
 </script>
-
-<style scoped lang="scss"></style>

@@ -1,6 +1,19 @@
 <template>
-  <div>
-    <SearchForm />
+  <SearchForm v-if="showSearch" />
+  <div class="card table-main">
+    <div class="table-header">
+      <el-space>
+        <el-button>按钮</el-button>
+        <slot name="tableHeader" :selected-list="[]" :selected-list-ids="[]" :is-selected="false" />
+      </el-space>
+      <el-space>
+        <slot name="toolButton">
+          <el-button v-if="showToolButton('refresh')" :icon="Refresh" circle @click="getTableList" />
+          <el-button v-if="showToolButton('setting') && columns.length" :icon="Operation" circle @click="openColSet" />
+          <el-button v-if="showToolButton('search') && searchColumns?.length" :icon="Search" circle @click="showSearch = !showSearch" />
+        </slot>
+      </el-space>
+    </div>
     <el-table ref="tableContext" v-bind="$attrs" :data="processTableData" :rowKey="rowKey">
       <!-- 默认插槽 -->
       <slot />
@@ -24,7 +37,7 @@
           </template>
         </el-table-column>
         <!--其他 -->
-        <TableColumn v-if="!item.type && item.prop" :column="item">
+        <TableColumn v-if="!item.type && item.prop && item.isShow" :column="item">
           <template v-for="slot in Object.keys($slots)" #[slot]="scope">
             <slot :name="slot" v-bind="scope" />
           </template>
@@ -34,18 +47,29 @@
       <template #append>
         <slot name="append" />
       </template>
+      <template #empty>
+        <div class="table-empty">
+          <slot name="empty">
+            <img src="@/assets/images/notData.png" alt="notData" />
+            <div>暂无数据</div>
+          </slot>
+        </div>
+      </template>
     </el-table>
     <!-- 分页组件 -->
     <slot nam="pagination">
       <Pagination v-if="pagination" :pageable="pageable" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange" />
     </slot>
   </div>
+  <ColSetting v-if="showToolButton('setting')" ref="colsetContext" v-model:colset-columns="colsetColumns" />
 </template>
 
 <script setup name="SuperTable">
 import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
-import { useTableHook } from './js/hook'
+import { Refresh, Operation, Search } from '@element-plus/icons-vue'
+import { useTableHook } from './hook/table'
 import { properties } from './js/props'
+import { handleProp } from './js/util'
 import TableColumn from './components/TableColumn.vue'
 import Pagination from './components/Pagination.vue'
 import SearchForm from '@/components/SearchForm/index.vue'
@@ -54,9 +78,6 @@ import Sortable from 'sortablejs'
 
 const props = defineProps(properties)
 const emits = defineEmits(['search', 'reset', 'dargSort'])
-
-//eltable实例
-const tableContext = ref()
 
 //使用hook函数
 const { tableData, pageable, searchParam, searchInitParam, getTableList, search, reset, handleSizeChange, handleCurrentChange } = useTableHook(
@@ -67,11 +88,22 @@ const { tableData, pageable, searchParam, searchInitParam, getTableList, search,
   props.requestError,
 )
 
-//特殊列配置类型
-const columnTypes = ['selection', 'radio', 'index', 'expand', 'sort']
+//eltable实例
+const tableContext = ref()
 
 //单选选中的rowKey
 const radio = ref('')
+
+//是否显示搜索模块
+const showSearch = ref(true)
+
+//特殊列配置类型
+const columnTypes = ['selection', 'radio', 'index', 'expand', 'sort']
+
+//是否展示toolbutton
+const showToolButton = (key) => {
+  return Array.isArray(props.toolButton) ? props.toolButton.includes(key) : props.toolButton
+}
 
 //表格数据初处理
 const processTableData = computed(() => {
@@ -152,6 +184,8 @@ searchColumns.value?.forEach((column, index) => {
     searchParam.value[key] = defaultValue
   }
 })
+
+console.log('searchColumns', searchColumns)
 
 //列设置相关==>过滤掉不需要的列
 const colsetContext = ref()

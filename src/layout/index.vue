@@ -53,8 +53,8 @@ const width = computed(() => (appStore.isCollapse ? '65px' : '210px'))
     height: 40px;
     line-height: 40px;
     text-align: center;
-    background-color: #eee;
     font-size: 12px;
+    background-color: var(--el-bg-color-page);
   }
 }
 </style>

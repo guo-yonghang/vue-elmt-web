@@ -39,10 +39,11 @@ const getChilrenRoute = (list) => {
   const res = []
   for (let i = 0, len = list.length; i < len; i++) {
     const { path, name, title, icon = '', type, visible = true, keepAlive = true, children = [] } = list[i]
+    const enTitle = name.split('/').pop()
     const obj = {
       path,
       name,
-      meta: { title: title, enTitle: name, icon, type, visible, keepAlive },
+      meta: { title: title, enTitle, icon, type, visible, keepAlive },
     }
     if (type === 2) {
       obj.component = views[`../views${path}.vue`]

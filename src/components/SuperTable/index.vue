@@ -3,8 +3,9 @@
   <div class="card table-main">
     <div class="table-header">
       <el-space>
-        <el-button>按钮</el-button>
-        <slot name="tableHeader" :selected-list="[]" :selected-list-ids="[]" :is-selected="false" />
+        <slot name="tableHeader" :selected-list="selectedList" :selected-list-ids="selectedListIds" :is-selected="isSelected">
+          <span></span>
+        </slot>
       </el-space>
       <el-space>
         <slot name="toolButton">
@@ -14,7 +15,7 @@
         </slot>
       </el-space>
     </div>
-    <el-table ref="tableContext" v-bind="$attrs" :data="processTableData" :rowKey="rowKey">
+    <el-table ref="tableContext" v-bind="$attrs" :data="processTableData" :rowKey="rowKey" @selection-change="selectionChange">
       <!-- 默认插槽 -->
       <slot />
       <!-- 列配置 -->
@@ -68,6 +69,7 @@
 import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
 import { Refresh, Operation, Search } from '@element-plus/icons-vue'
 import { useTableHook } from './hook/table'
+import { useSelection } from './hook/selection'
 import { properties } from './js/props'
 import { handleProp } from './js/util'
 import TableColumn from './components/TableColumn.vue'
@@ -87,6 +89,7 @@ const { tableData, pageable, searchParam, searchInitParam, getTableList, search,
   props.dataCallBack,
   props.requestError,
 )
+const { selectionChange, selectedList, selectedListIds, isSelected } = useSelection(props.rowKey)
 
 //eltable实例
 const tableContext = ref()

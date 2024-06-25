@@ -8,6 +8,9 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 
 ### router mode
 
+需求1、打开预览地址直接全屏预览
+需求2、未登录时打开地址跳转登录页，登录完成返回该地址
+
 ```
 http://localhost:5173/#/table/superTable
 http://localhost:5173/#/preview/table/superTable

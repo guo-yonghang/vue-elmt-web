@@ -10,6 +10,7 @@ import { useSetting } from '@/hooks/useSetting'
 const appStore = useAppStore()
 const { updatePrimary } = useSetting()
 
+//黑夜模式变化
 const onDarkChange = (e) => {
   updatePrimary()
 }

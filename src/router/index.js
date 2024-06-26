@@ -47,7 +47,8 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-router.afterEach(() => {
+router.afterEach((to) => {
+  document.title = to.meta.subTitle ? `${to.meta.title} | ${to.meta.subTitle}` : to.meta.title
   nProgress.done()
 })
 

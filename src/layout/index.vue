@@ -24,6 +24,7 @@ import Main from './Main.vue'
 
 const appStore = useAppStore()
 
+//侧边栏的宽度
 const width = computed(() => (appStore.isCollapse ? '65px' : '210px'))
 </script>
 

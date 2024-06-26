@@ -5,7 +5,7 @@
         <el-icon v-if="subItem.icon">
           <component :is="subItem.icon"></component>
         </el-icon>
-        <span class="sle">{{ subItem.title }}</span>
+        <span class="sle">{{ getTitle(subItem) }}</span>
       </template>
       <SubMenu :menuList="subItem.children" />
     </el-sub-menu>
@@ -14,7 +14,7 @@
         <component :is="subItem.icon"></component>
       </el-icon>
       <template #title>
-        <span class="sle">{{ subItem.title }}</span>
+        <span class="sle">{{ getTitle(subItem) }}</span>
       </template>
     </el-menu-item>
   </template>
@@ -22,11 +22,19 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
+import { useAppStore } from '@/store/index'
 
 defineProps({ menuList: { type: Array, default: () => [] } })
 
 const router = useRouter()
+const appStore = useAppStore()
 
+//菜单项标题
+const getTitle = ({ name, title }) => {
+  return appStore.language === 'zh' ? title : name.split('\/').pop()
+}
+
+//点击菜单项
 const onSubItem = (subItem) => {
   router.push(subItem.path)
 }

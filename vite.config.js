@@ -30,7 +30,10 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'dist',
+    outDir: 'build',
     minify: 'esbuild', //esbuild fast；terser can remove console
+    // rollupOptions: {
+    //   input: 'src/main.js',
+    // },
   },
 })

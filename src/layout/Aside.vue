@@ -1,7 +1,7 @@
 <template>
   <div class="logo-box flxc">
-    <img src="../assets/images/vue.svg" alt="" />
-    <span v-show="!collapse">Vue-Elm</span>
+    <img src="../assets/images/element-plus.org.svg" alt="" />
+    <span v-show="!collapse">System</span>
   </div>
   <div class="menu-box">
     <el-scrollbar>
@@ -22,7 +22,10 @@ import menuList from '@/assets/json/menuList.json'
 const route = useRoute()
 const appStore = useAppStore()
 
+//激活的菜单
 const defaultActive = computed(() => route.path)
+
+//菜单是否折叠
 const collapse = computed(() => appStore.isCollapse)
 </script>
 
@@ -32,10 +35,10 @@ const collapse = computed(() => appStore.isCollapse)
   height: 55px;
   img {
     width: 35px;
+    height: 35px;
   }
   span {
     font-size: 18px;
-    font-weight: bold;
     margin-left: 10px;
     white-space: nowrap;
   }

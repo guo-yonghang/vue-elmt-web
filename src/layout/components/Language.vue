@@ -17,6 +17,7 @@ import { useSetting } from '@/hooks/index'
 const appStore = useAppStore()
 const { updateLanguage } = useSetting()
 
+//语言变化
 const onLanguageChange = (e) => {
   appStore.language = e
   updateLanguage()

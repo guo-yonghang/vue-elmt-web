@@ -18,6 +18,7 @@ import Language from './components/Language.vue'
 
 const appStore = useAppStore()
 
+//折叠展开菜单
 const onCollapse = () => {
   appStore.isCollapse = !appStore.isCollapse
 }

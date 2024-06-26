@@ -1,7 +1,7 @@
 <template>
   <div class="ful flx jstb alic">
     <el-space>
-      <el-button class="fs-22" :icon="appStore.isCollapse ? 'Expand' : 'Fold'" text size="large" circle @click="onCollapse" />
+      <el-button class="fs-22" :icon="appStore.collapse ? 'Expand' : 'Fold'" text size="large" circle @click="onCollapse" />
     </el-space>
     <el-space>
       <SwitchDark />
@@ -20,7 +20,7 @@ const appStore = useAppStore()
 
 //折叠展开菜单
 const onCollapse = () => {
-  appStore.isCollapse = !appStore.isCollapse
+  appStore.collapse = !appStore.collapse
 }
 </script>
 

@@ -5,12 +5,12 @@ export const useAppStore = defineStore({
   id: 'vue-elm-app',
   state: () => ({
     layoutRoute: null,
-    previewRoute: null,
-    isCollapse: false,
+    collapse: false,
     primary: DEFAULT_PRIMARY,
     isDark: false,
     language: 'zh', // 'zh' | 'en'
     comSize: 'default', //'large' | 'default' | 'small'
+    showFooter: false,
   }),
   getters: {},
   actions: {},

@@ -12,11 +12,14 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const openWindow = () => {
-  window.open('http://localhost:5173/#/preview/table/superTable')
+  window.open('http://localhost:5173/#/preview/table/superTable?subTitle=你好')
 }
 const openTable = () => {
   router.push({
     path: '/table/superTable',
+    query: {
+      subTitle: '用户列表',
+    },
   })
 }
 </script>

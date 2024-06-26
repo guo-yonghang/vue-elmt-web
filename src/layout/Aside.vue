@@ -26,7 +26,7 @@ const appStore = useAppStore()
 const defaultActive = computed(() => route.path)
 
 //菜单是否折叠
-const collapse = computed(() => appStore.isCollapse)
+const collapse = computed(() => appStore.collapse)
 </script>
 
 <style lang="scss" scoped>

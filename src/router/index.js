@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { useAppStore } from '@/store/index'
-import { initLayoutRoute, initPreviewRoute } from '@/config/menu'
+import { initLayoutRoute } from '@/config/menu'
 import nProgress from 'nprogress'
 
 const router = createRouter({
@@ -35,20 +35,17 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   nProgress.start()
   const appStore = useAppStore()
-  const isPreview = to.fullPath.includes('/preview')
-  if (isPreview && !appStore.previewRoute) {
-    initPreviewRoute()
-    return next({ path: to.path, replace: true })
-  }
-  if (!isPreview && !appStore.layoutRoute) {
-    initLayoutRoute()
-    return next({ path: to.path, replace: true })
+  //路由初始化
+  if (!appStore.layoutRoute) {
+    const layoutPath = to.fullPath.indexOf('/preview') === 0 ? '/preview' : '/layout'
+    initLayoutRoute(layoutPath)
+    return next({ path: to.path, query: to.query, replace: true })
   }
   next()
 })
 
 router.afterEach((to) => {
-  document.title = to.meta.subTitle ? `${to.meta.title} | ${to.meta.subTitle}` : to.meta.title
+  document.title = to.query.subTitle ? `${to.meta.title} | ${to.query.subTitle}` : to.meta.title
   nProgress.done()
 })
 

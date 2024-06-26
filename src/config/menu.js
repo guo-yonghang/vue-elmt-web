@@ -8,11 +8,17 @@ import resultRoutes from '@/assets/json/resultRoutes.json'
 const views = import.meta.glob('../views/**/*.vue')
 
 //初始化layout路由
-export const initLayoutRoute = () => {
+export const initLayoutRoute = (layoutPath) => {
   const appStore = useAppStore()
   const children = getChilrenRoute(menuList.concat(resultRoutes))
+  if (layoutPath === '/preview') {
+    children.forEach((item) => {
+      item.path = `/preview${item.path}`
+      item.name = `/preview${item.path}`
+    })
+  }
   const layout = {
-    path: '/layout',
+    path: layoutPath,
     name: 'layout',
     component: markRaw(Layout),
     redirect: children[0].name,
@@ -20,17 +26,6 @@ export const initLayoutRoute = () => {
   }
   router.addRoute(layout)
   appStore.layoutRoute = layout
-}
-
-//初始化preview路由
-export const initPreviewRoute = () => {
-  const appStore = useAppStore()
-  const previewRoutes = getChilrenRoute(menuList.concat(resultRoutes))
-  previewRoutes.forEach((item) => {
-    item.path = `/preview${item.path}`
-    router.addRoute(item)
-  })
-  appStore.previewRoute = previewRoutes
 }
 
 //处理layout的子路由

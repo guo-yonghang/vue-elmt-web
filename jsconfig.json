@@ -4,6 +4,8 @@
       "target": "ESNext",
       "module": "ESNext",
       "moduleResolution": "Node",
+      "jsx": "preserve",
+      "jsxImportSource": "vue",
       "baseUrl": "./",
       "paths": {
         "@/*": [

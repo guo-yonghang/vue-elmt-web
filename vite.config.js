@@ -31,9 +31,12 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
-    minify: 'esbuild', //esbuild fast；terser can remove console
-    // rollupOptions: {
-    //   input: 'src/main.js',
-    // },
+    minify: 'esbuild',
+    rollupOptions: {
+      input: 'src/main.js',
+    },
+  },
+  server: {
+    host: '192.168.2.145',
   },
 })

@@ -6,13 +6,14 @@
     <el-space>
       <SwitchDark />
       <Language />
-      <span>nihao</span>
+      <el-button class="fs-22" icon="Setting" text size="large" circle @click="onSettings" />
     </el-space>
   </div>
 </template>
 
 <script setup>
 import { useAppStore } from '@/store/index'
+import mittBus from '@/utils/mittBus'
 import SwitchDark from './components/SwitchDark.vue'
 import Language from './components/Language.vue'
 
@@ -21,6 +22,11 @@ const appStore = useAppStore()
 //折叠展开菜单
 const onCollapse = () => {
   appStore.collapse = !appStore.collapse
+}
+
+//打开设置抽屉
+const onSettings = () => {
+  mittBus.emit('openSettings')
 }
 </script>
 

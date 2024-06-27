@@ -2,17 +2,13 @@
   <template v-for="subItem in menuList" :key="subItem.path">
     <el-sub-menu v-if="subItem.type === 1 && subItem.children?.length" :index="subItem.path">
       <template #title>
-        <el-icon v-if="subItem.icon">
-          <component :is="subItem.icon"></component>
-        </el-icon>
+        <RenderIcon :icon="subItem.icon" />
         <span class="sle">{{ getTitle(subItem) }}</span>
       </template>
       <SubMenu :menuList="subItem.children" />
     </el-sub-menu>
     <el-menu-item v-else :index="subItem.path" @click="onSubItem(subItem)">
-      <el-icon v-if="subItem.icon">
-        <component :is="subItem.icon"></component>
-      </el-icon>
+      <RenderIcon :icon="subItem.icon" />
       <template #title>
         <span class="sle">{{ getTitle(subItem) }}</span>
       </template>
@@ -20,7 +16,8 @@
   </template>
 </template>
 
-<script setup>
+<script setup lang="jsx">
+import { h, resolveComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/store/index'
 
@@ -28,6 +25,13 @@ defineProps({ menuList: { type: Array, default: () => [] } })
 
 const router = useRouter()
 const appStore = useAppStore()
+
+//菜单项图标
+const RenderIcon = ({ icon }) => {
+  if (!icon) return <></>
+  if (icon.includes('http')) return <img src={icon} style="width:20px;margin-right:5px;" />
+  return <el-icon>{h(resolveComponent(icon))}</el-icon>
+}
 
 //菜单项标题
 const getTitle = ({ name, title }) => {

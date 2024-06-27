@@ -33,11 +33,11 @@ const getChilrenRoute = (list) => {
   list.sort((a, b) => a.idx - b.idx)
   const res = []
   for (let i = 0, len = list.length; i < len; i++) {
-    const { path, name, title, icon = '', type, visible = true, keepAlive = true, children = [] } = list[i]
+    const { path, name, title, icon = '', type, visible = true, keepAlive = true, needLogin = false, children = [] } = list[i]
     const obj = {
       path,
       name,
-      meta: { title: title, icon, type, visible, keepAlive },
+      meta: { title: title, icon, type, visible, keepAlive, needLogin },
     }
     if (type === 2) {
       obj.component = views[`../views${path}.vue`]

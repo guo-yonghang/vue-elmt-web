@@ -15,7 +15,8 @@
         "keepAlive": true,
         "visible": true,
         "idx": 1,
-        "icon": ""
+        "icon": "https://jpf.jpwanrun.com/upload/mp-app/zhangbo1.png",
+        "needLogin":true
       },
       {
         "path": "/table/baseTable",
@@ -25,7 +26,8 @@
         "keepAlive": true,
         "visible": true,
         "idx": 2,
-        "icon": ""
+        "icon": "",
+        "needLogin":true
       }
     ]
   }

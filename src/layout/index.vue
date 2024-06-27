@@ -14,12 +14,14 @@
       <el-header>
         <Header />
       </el-header>
+      <Tabs />
       <el-main>
         <Main />
       </el-main>
       <el-footer v-if="showFooter"> 2024 © Vue-Elm By 逆境生长. </el-footer>
     </el-container>
   </el-container>
+  <SettingDraw />
 </template>
 
 <script setup>
@@ -29,6 +31,8 @@ import { useAppStore } from '@/store/index'
 import Aside from './Aside.vue'
 import Header from './Header.vue'
 import Main from './Main.vue'
+import Tabs from './components/Tabs.vue'
+import SettingDraw from './components/SettingDraw.vue'
 
 const route = useRoute()
 const appStore = useAppStore()

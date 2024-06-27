@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useTabStore = defineStore({
-  id: 'vue-elm-tab',
+  id: 'system-tab',
   state: () => ({
     tabList: {},
   }),

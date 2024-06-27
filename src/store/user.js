@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore({
-  id: 'vue-elm-user',
+  id: 'system-user',
   state: () => ({
     userInfo: {},
   }),

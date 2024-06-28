@@ -43,5 +43,3 @@ const onSubItem = (subItem) => {
   router.push(subItem.path)
 }
 </script>
-
-<style lang="scss" scoped></style>

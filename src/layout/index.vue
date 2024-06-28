@@ -11,7 +11,7 @@
       <Aside />
     </el-aside>
     <el-container>
-      <el-header>
+      <el-header @contextmenu="onContextmenu">
         <Header />
       </el-header>
       <Tabs />
@@ -45,6 +45,11 @@ const showFooter = computed(() => appStore.showFooter)
 
 //侧边栏的宽度
 const width = computed(() => (appStore.collapse ? '65px' : '210px'))
+
+//禁止右键菜单
+const onContextmenu = (event) => {
+  event.preventDefault()
+}
 </script>
 
 <style lang="scss" scoped>
@@ -53,14 +58,16 @@ const width = computed(() => (appStore.collapse ? '65px' : '210px'))
   height: 100%;
 
   .el-aside {
-    border-right: 1px solid var(--el-border-color);
     overflow: hidden;
     user-select: none;
     transition: width 0.3s ease;
+    border-right: 1px solid var(--el-border-color-light);
   }
 
   .el-header {
     height: 55px;
+    background-color: var(--el-header-bg-color);
+    border-bottom: 1px solid var(--el-border-color-light);
   }
 
   .el-main {

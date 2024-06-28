@@ -1,4 +1,6 @@
-<template>warning</template>
+<template>
+  <div>warning</div>
+</template>
 
 <script>
 export default {}

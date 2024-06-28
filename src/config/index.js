@@ -4,5 +4,3 @@ export const DEFAULT_PRIMARY = '#366ef4'
 export const PRIMARY_LIST = [DEFAULT_PRIMARY, '#F5222D', '#FA541C', '#FAAD14', '#13C2C2', '#52C41A', '#1890FF', '#2F54EB', '#722ED1']
 //登录页地址
 export const LOGIN_PATH = '/login'
-//默认首页地址
-export const HOME_PATH = '/home/index'

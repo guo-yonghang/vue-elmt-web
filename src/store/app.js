@@ -12,13 +12,15 @@ export const useAppStore = defineStore({
     comSize: 'default',
     showFooter: false,
     showCrumb: true,
+    showCrumbIcon: true,
     showTabs: true,
+    showTabsIcon: true,
   }),
   getters: {},
   actions: {},
   persist: {
     key: 'persist-app',
     storage: window.localStorage,
-    paths: ['primary', 'isDark', 'language', 'comSize', 'showFooter', 'showCrumb', 'showTabs'],
+    paths: ['primary', 'isDark', 'language', 'comSize', 'showFooter', 'showCrumb', 'showCrumbIcon', 'showTabs', 'showTabsIcon'],
   },
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="logo-box flxc">
-    <img src="../assets/images/element-plus.org.svg" alt="" />
+    <img src="https://files.codelife.cc/icons/element-plus.org.svg" alt="" />
     <span v-show="!collapse">System</span>
   </div>
   <div class="menu-box">
@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '@/store/index'
 import SubMenu from './components/SubMenu.vue'
@@ -27,6 +27,11 @@ const defaultActive = computed(() => route.path)
 
 //菜单是否折叠
 const collapse = computed(() => appStore.collapse)
+
+//启动判断是否折叠
+onMounted(() => {
+  appStore.collapse = document.documentElement.offsetWidth <= 768
+})
 </script>
 
 <style lang="scss" scoped>

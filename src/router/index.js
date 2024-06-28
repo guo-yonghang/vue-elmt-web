@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { useAppStore } from '@/store/index'
+import { useAppStore, useTabStore } from '@/store/index'
 import { initLayoutRoute } from '@/config/menu'
 import nProgress from 'nprogress'
 
@@ -51,6 +51,8 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
   document.title = to.query.subTitle ? `${to.meta.title} | ${to.query.subTitle}` : to.meta.title
+  const tabStore = useTabStore()
+  tabStore.addTab(to)
   nProgress.done()
 })
 

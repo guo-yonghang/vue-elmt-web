@@ -1,5 +1,5 @@
 import { markRaw } from 'vue'
-import { useAppStore } from '@/store/index'
+import { useAppStore, useTabStore } from '@/store/index'
 import router from '@/router/index'
 import Layout from '@/layout/index.vue'
 import menuList from '@/assets/json/menuList.json'
@@ -10,6 +10,7 @@ const views = import.meta.glob('../views/**/*.vue')
 //初始化layout路由
 export const initLayoutRoute = (layoutPath) => {
   const appStore = useAppStore()
+  const tabStore = useTabStore()
   const children = getChilrenRoute(menuList.concat(resultRoutes))
   if (layoutPath === '/preview') {
     children.forEach((item) => {
@@ -26,6 +27,7 @@ export const initLayoutRoute = (layoutPath) => {
   }
   router.addRoute(layout)
   appStore.layoutRoute = layout
+  tabStore.homePath = children[0].path
 }
 
 //处理layout的子路由

@@ -42,7 +42,7 @@ router.beforeEach((to, from, next) => {
   const appStore = useAppStore()
   //路由初始化
   if (!appStore.layoutRoute) {
-    const layoutPath = to.fullPath.indexOf('/preview') === 0 ? '/preview' : '/layout'
+    const layoutPath = to.path.indexOf('/preview') === 0 ? '/preview' : '/layout'
     initLayoutRoute(layoutPath)
     return next({ path: to.path, query: to.query, replace: true })
   }

@@ -5,7 +5,7 @@
     "title": "成功",
     "type": 2,
     "keepAlive": false,
-    "visible": false,
+    "visible": true,
     "idx": 1001
   },
   {
@@ -14,7 +14,7 @@
     "title": "警告",
     "type": 2,
     "keepAlive": false,
-    "visible": false,
+    "visible": true,
     "idx": 1002
   },
   {
@@ -23,7 +23,7 @@
     "title": "错误",
     "type": 2,
     "keepAlive": false,
-    "visible": false,
+    "visible": true,
     "idx": 1003
   }
 ]

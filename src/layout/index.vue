@@ -38,7 +38,7 @@ const route = useRoute()
 const appStore = useAppStore()
 
 //是否预览模式
-const isPreview = computed(() => route.fullPath.indexOf('/preview') === 0)
+const isPreview = computed(() => route.path.indexOf('/preview') === 0)
 
 //是否展示footer
 const showFooter = computed(() => appStore.showFooter)

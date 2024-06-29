@@ -5,6 +5,7 @@
     "title": "数据表格",
     "type": 1,
     "icon": "Tickets",
+    "visible":true,
     "idx": 1,
     "children": [
       {
@@ -15,7 +16,7 @@
         "keepAlive": true,
         "visible": true,
         "idx": 1,
-        "icon": "https://files.codelife.cc/icons/element-plus.org.svg",
+        "icon": "Menu",
         "needLogin":true
       },
       {
@@ -26,7 +27,39 @@
         "keepAlive": true,
         "visible": true,
         "idx": 2,
-        "icon": "",
+        "icon": "Menu",
+        "needLogin":true
+      }
+    ]
+  },{
+    "path": "/form",
+    "name": "form",
+    "title": "数据表单",
+    "type": 1,
+    "icon": "Tickets",
+    "visible":true,
+    "idx": 2,
+    "children": [
+      {
+        "path": "/form/superForm",
+        "name": "/form/superForm",
+        "title": "超级表单",
+        "type": 2,
+        "keepAlive": true,
+        "visible": true,
+        "idx": 1,
+        "icon": "Menu",
+        "needLogin":true
+      },
+      {
+        "path": "/form/baseForm",
+        "name": "/form/baseForm",
+        "title": "基础表单",
+        "type": 2,
+        "keepAlive": true,
+        "visible": true,
+        "idx": 2,
+        "icon": "Menu",
         "needLogin":true
       }
     ]

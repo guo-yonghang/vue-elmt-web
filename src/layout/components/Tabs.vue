@@ -4,15 +4,17 @@
       <el-tab-pane v-for="(item, index) in tabStore.tabList" :key="item.path" :label="item.title" :name="item.path" :closable="item.path !== tabStore.homePath">
         <template #label>
           <el-dropdown ref="dropContexts" trigger="contextmenu" @visible-change="onVisibleChange($event, index)">
-            <RenderIcon :icon="item.icon" v-if="item.icon && appStore.showTabsIcon" />
-            <span :class="{ 'is-active': item.path === tabValue }">{{ item.title }}</span>
+            <div :class="['el-dropdown_content', { 'is-active': item.path === tabValue }]">
+              <RenderIcon :icon="item.icon" v-if="item.icon && appStore.showTabsIcon" />
+              <span>{{ item.title }}</span>
+            </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :icon="Refresh">刷新</el-dropdown-item>
-                <el-dropdown-item :icon="DArrowLeft">关闭左侧</el-dropdown-item>
-                <el-dropdown-item :icon="DArrowRight">关闭右侧</el-dropdown-item>
-                <el-dropdown-item :icon="Remove">关闭其他</el-dropdown-item>
-                <el-dropdown-item :icon="CircleClose">关闭所有</el-dropdown-item>
+                <el-dropdown-item :icon="Refresh" @click="onRefresh(index)" v-if="item.path === tabValue">刷新</el-dropdown-item>
+                <el-dropdown-item :icon="DArrowLeft" @click="tabStore.delTabLeft(index)" v-if="index > 0">关闭左侧</el-dropdown-item>
+                <el-dropdown-item :icon="DArrowRight" @click="tabStore.delTabRight(index, tabValue)" v-if="index < tabStore.tabList.length - 1">关闭右侧</el-dropdown-item>
+                <el-dropdown-item :icon="Remove" @click="tabStore.delTabOther(index)">关闭其他</el-dropdown-item>
+                <el-dropdown-item :icon="CircleClose" @click="tabStore.delTabAll">关闭所有</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -37,11 +39,11 @@ const tabStore = useTabStore()
 const dropContexts = ref()
 
 //标签的值
-const tabValue = ref(route.fullPath)
+const tabValue = ref(route.path)
 
 //监听路由
 watch(
-  () => route.fullPath,
+  () => route.path,
   (newValue) => {
     if (newValue !== tabValue.value) {
       tabValue.value = newValue
@@ -71,7 +73,14 @@ const onTabClick = ({ props }) => {
 }
 
 //删除标签
-const onTabRemove = () => {}
+const onTabRemove = (path) => {
+  tabStore.delTab(path, path === tabValue.value)
+}
+
+//刷新标签
+const onRefresh = (index) => {
+  router.go(0)
+}
 
 //渲染图标
 const RenderIcon = ({ icon }) => {
@@ -86,10 +95,10 @@ const onTabsDrop = () => {
     draggable: '.el-tabs__item',
     animation: 300,
     onEnd({ newIndex, oldIndex }) {
-      const tabsList = [...tabStore.tabsList]
-      const currRow = tabsList.splice(oldIndex, 1)[0]
-      tabsList.splice(newIndex, 0, currRow)
-      tabStore.tabList = tabsList
+      const tabList = [...tabStore.tabList]
+      const currRow = tabList.splice(oldIndex, 1)[0]
+      tabList.splice(newIndex, 0, currRow)
+      tabStore.tabList = tabList
     },
   })
 }
@@ -116,20 +125,31 @@ onMounted(() => {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #afafaf;
             border: none;
-            .tab-icon {
-              width: 20px;
-              margin-right: 4px;
-            }
-            .is-icon-close {
-              margin-top: 1.5px;
-            }
-            .is-active {
-              color: var(--el-color-primary);
-            }
             &.is-active {
               color: var(--el-color-primary);
+              border-bottom: 2px solid var(--el-color-primary);
+            }
+            .el-dropdown {
+              height: 100%;
+            }
+            .el-dropdown_content {
+              height: 100%;
+              display: flex;
+              align-items: center;
+              color: #afafaf;
+              .tab-icon {
+                font-size: 14px;
+                height: 14px;
+                margin-right: 4px;
+              }
+              .is-icon-close {
+                margin-top: 1.5px;
+              }
+
+              &.is-active {
+                color: var(--el-color-primary);
+              }
             }
           }
         }

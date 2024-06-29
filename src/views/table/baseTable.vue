@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="/form/baseTable">
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

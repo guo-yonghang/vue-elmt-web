@@ -5,11 +5,13 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { fileURLToPath, URL } from 'node:url'
+import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
 
 export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    vueSetupExtend(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
@@ -32,11 +34,5 @@ export default defineConfig({
   build: {
     outDir: 'build',
     minify: 'esbuild',
-    rollupOptions: {
-      input: 'src/main.js',
-    },
-  },
-  server: {
-    host: '192.168.2.145',
   },
 })

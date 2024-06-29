@@ -1,18 +1,20 @@
 <template>
   <template v-for="subItem in menuList" :key="subItem.path">
-    <el-sub-menu v-if="subItem.type === 1 && subItem.children?.length" :index="subItem.path">
-      <template #title>
+    <template v-if="!!subItem.visible">
+      <el-sub-menu v-if="subItem.type === 1 && subItem.children?.length" :index="subItem.path">
+        <template #title>
+          <RenderIcon :icon="subItem.icon" />
+          <span class="sle">{{ getTitle(subItem) }}</span>
+        </template>
+        <SubMenu :menuList="subItem.children" />
+      </el-sub-menu>
+      <el-menu-item v-else :index="subItem.path" @click="onSubItem(subItem)">
         <RenderIcon :icon="subItem.icon" />
-        <span class="sle">{{ getTitle(subItem) }}</span>
-      </template>
-      <SubMenu :menuList="subItem.children" />
-    </el-sub-menu>
-    <el-menu-item v-else :index="subItem.path" @click="onSubItem(subItem)">
-      <RenderIcon :icon="subItem.icon" />
-      <template #title>
-        <span class="sle">{{ getTitle(subItem) }}</span>
-      </template>
-    </el-menu-item>
+        <template #title>
+          <span class="sle">{{ getTitle(subItem) }}</span>
+        </template>
+      </el-menu-item>
+    </template>
   </template>
 </template>
 
@@ -43,3 +45,18 @@ const onSubItem = (subItem) => {
   router.push(subItem.path)
 }
 </script>
+
+<style lang="scss" scoped>
+:deep(.el-menu) {
+  .el-menu-item {
+    border-left: 4px solid transparent;
+    &.is-active {
+      border-color: var(--el-color-primary);
+      background-color: var(--el-menu-hover-bg-color);
+    }
+    &:hover {
+      background-color: var(--el-menu-border-color) !important;
+    }
+  }
+}
+</style>

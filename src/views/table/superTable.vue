@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script setup lang="jsx">
+<script setup lang="jsx" name="/form/superTable">
 import { ElButton } from 'element-plus'
 import SuperTable from '@/components/SuperTable/index.vue'
 

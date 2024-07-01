@@ -14,7 +14,6 @@
       <el-header @contextmenu="onContextmenu">
         <Header />
       </el-header>
-      <Tabs />
       <el-main>
         <Main />
       </el-main>
@@ -31,7 +30,6 @@ import { useAppStore } from '@/store/index'
 import Aside from './Aside.vue'
 import Header from './Header.vue'
 import Main from './Main.vue'
-import Tabs from './components/Tabs.vue'
 import SettingDraw from './components/SettingDraw.vue'
 
 const route = useRoute()
@@ -66,8 +64,12 @@ const onContextmenu = (event) => {
 
   .el-header {
     height: 55px;
+    padding: 0;
     background-color: var(--el-header-bg-color);
     border-bottom: 1px solid var(--el-border-color-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .el-main {

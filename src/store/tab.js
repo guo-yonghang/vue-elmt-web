@@ -17,6 +17,7 @@ export const useTabStore = defineStore({
         this.tabList[funKey]({
           path: route.path,
           title: route.meta.title,
+          enTitle: route.meta.enTitle,
           icon: route.meta.icon,
         })
       }

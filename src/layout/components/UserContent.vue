@@ -1,14 +1,15 @@
 <template>
   <el-dropdown trigger="click" @command="onLanguageChange">
-    <el-button circle text>
+    <el-button>
       <template #icon>
-        <img class="language-icon" src="@/assets/images/language-switch.png" />
+        <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
       </template>
+      <span>逆境生长</span>
     </el-button>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="zh" :disabled="appStore.language === 'zh'"> 简体中文 </el-dropdown-item>
-        <el-dropdown-item command="en" :disabled="appStore.language === 'en'"> English </el-dropdown-item>
+        <el-dropdown-item command="info"> 用户信息 </el-dropdown-item>
+        <el-dropdown-item command="logout"> 退出登录 </el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>

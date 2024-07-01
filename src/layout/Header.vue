@@ -1,28 +1,19 @@
 <template>
-  <div class="ful flx jstb alic">
+  <Tabs />
+  <div class="oprate-box">
     <el-space>
-      <el-button class="fs-22" :icon="appStore.collapse ? 'Expand' : 'Fold'" text size="large" circle @click="onCollapse" />
-    </el-space>
-    <el-space>
-      <SwitchDark />
       <Language />
-      <el-button class="fs-22" icon="Setting" text size="large" circle @click="onSettings" />
+      <el-button class="fs-22" icon="Setting" text circle @click="onSettings" />
+      <UserContent />
     </el-space>
   </div>
 </template>
 
 <script setup>
-import { useAppStore } from '@/store/index'
 import mittBus from '@/utils/mittBus'
-import SwitchDark from './components/SwitchDark.vue'
 import Language from './components/Language.vue'
-
-const appStore = useAppStore()
-
-//折叠展开菜单
-const onCollapse = () => {
-  appStore.collapse = !appStore.collapse
-}
+import Tabs from './components/Tabs.vue'
+import UserContent from './components/UserContent.vue'
 
 //打开设置抽屉
 const onSettings = () => {
@@ -30,4 +21,8 @@ const onSettings = () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.oprate-box {
+  padding: 0 15px;
+}
+</style>

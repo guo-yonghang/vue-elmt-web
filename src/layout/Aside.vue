@@ -10,6 +10,9 @@
       </el-menu>
     </el-scrollbar>
   </div>
+  <div class="collapse-box flxc">
+    <el-button class="fs-22" :icon="appStore.collapse ? 'Expand' : 'Fold'" text size="large" circle @click="onCollapse" />
+  </div>
 </template>
 
 <script setup>
@@ -32,6 +35,11 @@ const collapse = computed(() => appStore.collapse)
 onMounted(() => {
   appStore.collapse = document.documentElement.offsetWidth <= 768
 })
+
+//折叠展开菜单
+const onCollapse = () => {
+  appStore.collapse = !appStore.collapse
+}
 </script>
 
 <style lang="scss" scoped>
@@ -50,9 +58,14 @@ onMounted(() => {
 }
 
 .menu-box {
-  height: calc(100% - 55px);
+  height: calc(100% - 110px);
   .el-menu {
     border-right: none;
   }
+}
+
+.collapse-box {
+  width: 55px;
+  height: 55px;
 }
 </style>

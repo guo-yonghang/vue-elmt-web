@@ -6,7 +6,7 @@
           <el-dropdown ref="dropContexts" trigger="contextmenu" @visible-change="onVisibleChange($event, index)">
             <div :class="['el-dropdown_content', { 'is-active': item.path === tabValue }]">
               <RenderIcon :icon="item.icon" v-if="item.icon && appStore.showTabsIcon" />
-              <span>{{ item.title }}</span>
+              <span>{{ getTitle(item) }}</span>
             </div>
             <template #dropdown>
               <el-dropdown-menu>
@@ -50,6 +50,11 @@ watch(
     }
   },
 )
+
+//菜单项标题
+const getTitle = ({ path, title }) => {
+  return appStore.language === 'zh' ? title : path.split('\/').pop()
+}
 
 //禁用tabs右键菜单
 const onContextmenu = (event) => {
@@ -110,6 +115,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .tabs-box {
+  flex: 1;
   background-color: var(--el-bg-color);
   user-select: none;
   :deep(.el-tabs) {
@@ -117,6 +123,7 @@ onMounted(() => {
       box-sizing: border-box;
       height: 40px;
       margin: 0;
+      border-bottom: none;
       .el-tabs__nav-wrap {
         .el-tabs__nav {
           display: flex;
@@ -146,7 +153,6 @@ onMounted(() => {
               .is-icon-close {
                 margin-top: 1.5px;
               }
-
               &.is-active {
                 color: var(--el-color-primary);
               }

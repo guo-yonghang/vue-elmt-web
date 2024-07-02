@@ -4,6 +4,7 @@ import * as Icons from '@element-plus/icons-vue'
 
 import '@/styles/index.scss'
 import 'element-plus/theme-chalk/src/message.scss'
+import 'element-plus/theme-chalk/src/message-box.scss'
 import 'nprogress/nprogress.css'
 
 import pinia from '@/store/index'

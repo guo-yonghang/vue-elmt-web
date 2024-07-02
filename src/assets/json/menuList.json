@@ -63,5 +63,26 @@
         "needLogin":true
       }
     ]
+  },{
+    "path": "/myself",
+    "name": "myself",
+    "title": "我的店铺",
+    "type": 1,
+    "icon": "Tickets",
+    "visible":true,
+    "idx": 2,
+    "children": [
+      {
+        "path": "/myself/infomation",
+        "name": "/myself/infomation",
+        "title": "店铺信息",
+        "type": 2,
+        "keepAlive": true,
+        "visible": true,
+        "idx": 1,
+        "icon": "Menu",
+        "needLogin":true
+      }
+    ]
   }
 ]

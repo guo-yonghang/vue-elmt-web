@@ -5,7 +5,7 @@
   </div>
   <div class="menu-box">
     <el-scrollbar>
-      <el-menu :router="false" :default-active="defaultActive" :collapse="collapse" :unique-opened="true" :collapse-transition="false">
+      <el-menu :router="false" :default-active="defaultActive" :collapse="collapse" :unique-opened="false" :collapse-transition="false">
         <SubMenu :menu-list="menuList" />
       </el-menu>
     </el-scrollbar>

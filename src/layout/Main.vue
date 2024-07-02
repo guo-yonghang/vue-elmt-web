@@ -9,13 +9,24 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useTabStore } from '@/store/index'
+import menuList from '@/assets/json/menuList.json'
 
-const tabStore = useTabStore()
+//获取所有的缓存的列表
+const getKeepAliveNames = (list) => {
+  const result = []
+  list.forEach((item) => {
+    if (item.type === 2) {
+      result.push(item)
+    }
+    if (item.type === 1 && item.children.length) {
+      result.push(...getKeepAliveNames(item.children))
+    }
+  })
+  return result
+}
 
-//缓存组件列表
-const keepAliveList = computed(() => tabStore.tabList.map((item) => item.path))
+//缓存的列表
+const keepAliveList = getKeepAliveNames(menuList)
 </script>
 
 <style lang="scss" scoped></style>

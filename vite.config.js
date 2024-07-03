@@ -1,24 +1,9 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { fileURLToPath, URL } from 'node:url'
-import vueSetupExtend from 'unplugin-vue-setup-extend-plus/vite'
+import { createVitePugins } from './vite-plugins'
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    vueSetupExtend(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()],
-    }),
-    Components({
-      resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
-    }),
-  ],
+  plugins: createVitePugins(),
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -32,7 +17,7 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: 'build',
+    outDir: 'dist',
     minify: 'esbuild',
   },
 })

@@ -17,9 +17,6 @@ const openWindow = () => {
 const openTable = () => {
   router.push({
     path: '/table/superTable',
-    query: {
-      subTitle: '用户列表',
-    },
   })
 }
 </script>

@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import { useAppStore, useTabStore } from '@/store/index'
 import { initLayoutRoute } from '@/config/menu'
 import nProgress from 'nprogress'
+import { ElMessage } from 'element-plus'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -46,11 +47,16 @@ router.beforeEach((to, from, next) => {
     initLayoutRoute(layoutPath)
     return next({ path: to.path, query: to.query, replace: true })
   }
+  //如果是预览模式不支持跳转
+  if (from.fullPath.indexOf('/preview') === 0) {
+    ElMessage.warning('预览模式无权限')
+    return next({ path: from.path, query: from.query })
+  }
   next()
 })
 
 router.afterEach((to) => {
-  document.title = to.query.subTitle ? `${to.meta.title} | ${to.query.subTitle}` : to.meta.title
+  document.title = `${to.meta.title} | 管理系统`
   const tabStore = useTabStore()
   tabStore.addTab(to)
   nProgress.done()

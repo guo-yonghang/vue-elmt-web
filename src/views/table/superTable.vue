@@ -25,6 +25,8 @@ const tableColumn = [
     search: {
       el: 'input',
       label: '姓名',
+      width: '350px',
+      tooltip: '这是提示信息',
     },
   },
   {

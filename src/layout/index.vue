@@ -1,32 +1,39 @@
 <template>
-  <div class="preview-container" v-if="isPreview">
-    <router-view v-slot="{ Component }">
-      <transition appear name="fade-transform" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-  </div>
+  <!-- 预览模式布局 -->
+  <el-watermark :width="200" :font="{ color: 'rgba(180,180,180,0.05)' }" :content="WATERMARK_NAME" v-if="isPreview">
+    <div class="preview-container">
+      <router-view v-slot="{ Component }">
+        <transition appear name="fade-transform" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+    </div>
+  </el-watermark>
+  <!-- 常规模式布局 -->
   <el-container class="layout-container" v-else>
     <el-aside :width="width">
       <Aside />
     </el-aside>
     <el-container>
-      <el-header @contextmenu="onContextmenu">
+      <el-header @contextmenu="onContextmenu" v-if="showHeader">
         <Header />
       </el-header>
       <el-main>
         <Main />
       </el-main>
-      <el-footer v-if="showFooter"> 2024 © Vue-Elm By 逆境生长. </el-footer>
+      <el-footer v-if="showFooter"> 2024 逆境生长. </el-footer>
     </el-container>
   </el-container>
-  <SettingDraw />
+  <el-config-provider size="default">
+    <SettingDraw />
+  </el-config-provider>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAppStore } from '@/store/index'
+import { WATERMARK_NAME } from '@/config/index'
 import Aside from './Aside.vue'
 import Header from './Header.vue'
 import Main from './Main.vue'
@@ -37,6 +44,9 @@ const appStore = useAppStore()
 
 //是否预览模式
 const isPreview = computed(() => route.path.indexOf('/preview') === 0)
+
+//是否展示header
+const showHeader = computed(() => appStore.showHeader)
 
 //是否展示footer
 const showFooter = computed(() => appStore.showFooter)
@@ -88,8 +98,8 @@ const onContextmenu = (event) => {
 }
 
 .preview-container {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
   padding: 10px 12px;
   background-color: var(--el-bg-color-page);

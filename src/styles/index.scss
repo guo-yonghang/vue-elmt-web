@@ -1,7 +1,11 @@
 @use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;
+@use 'element-plus/theme-chalk/src/message.scss' as *;
+@use 'element-plus/theme-chalk/src/message-box.scss' as *;
 @use './common.scss' as *;
 @use './reset.scss' as *;
-@use '@/components/SuperTable/index.scss' as *;
+@use '@/components/SuperTable/dist/index.scss' as *;
+@import 'element-plus/dist/index.css';
+@import 'nprogress/nprogress.css';
 
 @for $i from 12 through 30 {
   .fs-#{$i} {

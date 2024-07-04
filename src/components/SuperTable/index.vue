@@ -1,5 +1,28 @@
 <template>
-  <SearchForm v-if="showSearch" />
+  <div class="card table-search" v-if="showSearch && searchColumns.length">
+    <el-form>
+      <template v-for="(item, index) in searchColumns" :key="index">
+        <div :style="{ width: item.search?.width || '300px' }">
+          <el-form-item>
+            <template #label>
+              <el-space :size="4">
+                <span>{{ item.search?.label || item.label }}</span>
+                <el-tooltip v-if="item.search?.tooltip" :content="item.search?.tooltip" placement="top">
+                  <el-icon><QuestionFilled /></el-icon>
+                </el-tooltip>
+              </el-space>
+              <span>&nbsp;:</span>
+            </template>
+            <SearchFormItem :column="item" :search-param="searchParam" />
+          </el-form-item>
+        </div>
+      </template>
+    </el-form>
+    <div class="operation">
+      <el-button type="primary">搜索</el-button>
+      <el-button>重置</el-button>
+    </div>
+  </div>
   <div class="card table-main">
     <div class="table-header">
       <el-space>
@@ -68,15 +91,16 @@
 <script setup name="SuperTable">
 import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
 import { Refresh, Operation, Search } from '@element-plus/icons-vue'
+import { useElementSize } from '@vueuse/core'
 import { useTableHook } from './hook/table'
 import { useSelection } from './hook/selection'
-import { properties } from './js/props'
-import { handleProp } from './js/util'
+import { properties } from './dist/props'
+import { handleProp } from './dist/util'
+import Sortable from 'sortablejs'
 import TableColumn from './components/TableColumn.vue'
 import Pagination from './components/Pagination.vue'
-import SearchForm from '@/components/SearchForm/index.vue'
 import ColSetting from './components/ColSetting.vue'
-import Sortable from 'sortablejs'
+import SearchFormItem from './components/SearchFormItem.vue'
 
 const props = defineProps(properties)
 const emits = defineEmits(['search', 'reset', 'dargSort'])
@@ -222,5 +246,3 @@ defineExpose({
 })
 console.log('ProTable-props', props)
 </script>
-
-<style scoped lang="scss"></style>

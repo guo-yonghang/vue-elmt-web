@@ -144,7 +144,7 @@ onMounted(() => {
               height: 100%;
               display: flex;
               align-items: center;
-              color: #afafaf;
+              color: var(--el-text-color-regular);
               .tab-icon {
                 font-size: 14px;
                 height: 14px;

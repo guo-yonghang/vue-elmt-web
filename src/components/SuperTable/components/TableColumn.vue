@@ -4,7 +4,7 @@
 
 <script setup lang="jsx" name="TableColumn">
 import { inject, ref, useSlots } from 'vue'
-import { handleProp, filterEnum, formatValue, handleRowAccordingToProp } from '../js/util'
+import { handleProp, filterEnum, formatValue, handleRowAccordingToProp } from '../dist/util'
 
 /**
  * columnType:

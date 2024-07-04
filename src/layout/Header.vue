@@ -2,7 +2,6 @@
   <Tabs />
   <div class="oprate-box">
     <el-space>
-      <Language />
       <el-button class="fs-22" icon="Setting" text circle @click="onSettings" />
       <UserContent />
     </el-space>
@@ -11,7 +10,6 @@
 
 <script setup>
 import mittBus from '@/utils/mittBus'
-import Language from './components/Language.vue'
 import Tabs from './components/Tabs.vue'
 import UserContent from './components/UserContent.vue'
 

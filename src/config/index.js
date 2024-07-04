@@ -1,3 +1,5 @@
+//水印名称
+export const WATERMARK_NAME = [navigator.userAgent, '管理系统']
 //默认主题色
 export const DEFAULT_PRIMARY = '#366ef4'
 //预定主题颜色

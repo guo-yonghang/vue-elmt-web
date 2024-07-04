@@ -32,11 +32,13 @@ const appStore = useAppStore()
 const onSelectItem = (value) => {
   if (value === 'info') {
     router.push({ path: '/myself/infomation' })
-  } else {
-    console.log('退出登录')
-    ElMessageBox.confirm('确认要退出登录吗？', '温馨提示', { type: 'warning' }).then(() => {
-      ElMessage.success('已退出')
-    })
+  }
+  if (value === 'logout') {
+    ElMessageBox.confirm('确认要退出登录吗？', '温馨提示', { type: 'warning' })
+      .then(() => {
+        ElMessage.success('已退出')
+      })
+      .catch(() => {})
   }
 }
 </script>

@@ -1,14 +1,14 @@
 <template>
   <div class="card table-search" v-if="showSearch && searchColumns.length">
-    <el-form>
+    <el-form ref="formContext" label-width="110px" :style="{ height: collapsed ? '50px' : '' }">
       <template v-for="(item, index) in searchColumns" :key="index">
-        <div :style="{ width: item.search?.width || '300px' }">
+        <div style="width: 370px">
           <el-form-item>
             <template #label>
               <el-space :size="4">
                 <span>{{ item.search?.label || item.label }}</span>
                 <el-tooltip v-if="item.search?.tooltip" :content="item.search?.tooltip" placement="top">
-                  <el-icon><QuestionFilled /></el-icon>
+                  <el-icon><Warning /></el-icon>
                 </el-tooltip>
               </el-space>
               <span>&nbsp;:</span>
@@ -19,8 +19,14 @@
       </template>
     </el-form>
     <div class="operation">
-      <el-button type="primary">搜索</el-button>
-      <el-button>重置</el-button>
+      <el-button :icon="Search" type="primary" @click="_search">搜索</el-button>
+      <el-button :icon="Delete" @click="_reset">重置</el-button>
+      <el-button v-if="showCollapse" type="primary" link @click="collapsed = !collapsed">
+        <!-- {{ collapsed ? '展开' : '合并' }} -->
+        <el-icon class="el-icon--right">
+          <component :is="collapsed ? ArrowDown : ArrowUp"></component>
+        </el-icon>
+      </el-button>
     </div>
   </div>
   <div class="card table-main">
@@ -43,7 +49,7 @@
       <slot />
       <!-- 列配置 -->
       <template v-for="item in tableColumns" :key="item">
-        <el-table-column v-if="item.type && columnTypes.includes(item.type)" v-bind="item" :align="item.align || 'center'" :reserve-selection="item.type == 'selection'">
+        <el-table-column v-if="item.type && columnTypes.includes(item.type)" v-bind="item" :align="item.align || 'center'" :reserve-selection="item.type === 'selection'">
           <template #default="scope">
             <!-- expand -->
             <template v-if="item.type === 'expand'">
@@ -85,17 +91,17 @@
       <Pagination v-if="pagination" :pageable="pageable" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange" />
     </slot>
   </div>
-  <ColSetting v-if="showToolButton('setting')" ref="colsetContext" v-model:colset-columns="colsetColumns" />
+  <ColSetting v-if="showToolButton('setting')" ref="colsetContext" v-model:colSetting="colSetting" />
 </template>
 
 <script setup name="SuperTable">
-import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
-import { Refresh, Operation, Search } from '@element-plus/icons-vue'
+import { ref, reactive, unref, computed, onMounted, provide, watch } from 'vue'
+import { Search, Refresh, Delete, ArrowDown, ArrowUp, Operation } from '@element-plus/icons-vue'
 import { useElementSize } from '@vueuse/core'
-import { useTableHook } from './hook/table'
-import { useSelection } from './hook/selection'
-import { properties } from './dist/props'
-import { handleProp } from './dist/util'
+import { useTableHook } from './common/table'
+import { useSelection } from './common/selection'
+import { properties } from './common/props'
+import { handleProp } from './common/util'
 import Sortable from 'sortablejs'
 import TableColumn from './components/TableColumn.vue'
 import Pagination from './components/Pagination.vue'
@@ -115,7 +121,8 @@ const { tableData, pageable, searchParam, searchInitParam, getTableList, search,
 )
 const { selectionChange, selectedList, selectedListIds, isSelected } = useSelection(props.rowKey)
 
-//eltable实例
+//实例
+const formContext = ref()
 const tableContext = ref()
 
 //单选选中的rowKey
@@ -124,6 +131,9 @@ const radio = ref('')
 //是否显示搜索模块
 const showSearch = ref(true)
 
+//是否折叠搜索表单
+const collapsed = ref(true)
+
 //特殊列配置类型
 const columnTypes = ['selection', 'radio', 'index', 'expand', 'sort']
 
@@ -131,6 +141,12 @@ const columnTypes = ['selection', 'radio', 'index', 'expand', 'sort']
 const showToolButton = (key) => {
   return Array.isArray(props.toolButton) ? props.toolButton.includes(key) : props.toolButton
 }
+
+//是否展示折叠按钮
+const { width } = useElementSize(formContext)
+const showCollapse = computed(() => {
+  return searchColumns.value.length * 370 > width.value
+})
 
 //表格数据初处理
 const processTableData = computed(() => {
@@ -212,11 +228,9 @@ searchColumns.value?.forEach((column, index) => {
   }
 })
 
-console.log('searchColumns', searchColumns)
-
 //列设置相关==>过滤掉不需要的列
 const colsetContext = ref()
-const colsetColumns = tableColumns.filter((item) => {
+const colSetting = tableColumns.filter((item) => {
   const { type, prop, isShow } = item
   return !columnTypes.includes(type) && prop !== 'operation' && isShow
 })
@@ -239,10 +253,20 @@ const clearSelection = () => tableContext.value.clearSelection()
 
 defineExpose({
   tableContext,
+  tableData: processTableData,
   pageable,
   enumMap,
   radio,
-  tableData: processTableData,
+  searchParam,
+  searchInitParam,
+  getTableList,
+  search,
+  reset,
+  handleSizeChange,
+  handleCurrentChange,
+  clearSelection,
+  isSelected,
+  selectedList,
+  selectedListIds,
 })
-console.log('ProTable-props', props)
 </script>

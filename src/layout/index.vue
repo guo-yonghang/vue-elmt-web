@@ -1,6 +1,6 @@
 <template>
   <!-- 预览模式布局 -->
-  <el-watermark :width="200" :font="{ color: 'rgba(180,180,180,0.05)' }" :content="WATERMARK_NAME" v-if="isPreview">
+  <el-watermark :width="200" :font="{ color: 'rgba(180,180,180,0.05)' }" :content="waterMarkText" v-if="isPreview">
     <div class="preview-container">
       <router-view v-slot="{ Component }">
         <transition appear name="fade-transform" mode="out-in">
@@ -30,29 +30,25 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { useAppStore } from '@/store/index'
-import { WATERMARK_NAME } from '@/config/index'
+import { computed, toRefs } from 'vue'
+import { useAppStore, useUserStore } from '@/store/index'
 import Aside from './Aside.vue'
 import Header from './Header.vue'
 import Main from './Main.vue'
 import SettingDraw from './components/SettingDraw.vue'
 
-const route = useRoute()
 const appStore = useAppStore()
+const userStore = useUserStore()
 
-//是否预览模式
-const isPreview = computed(() => route.path.indexOf('/preview') === 0)
-
-//是否展示header
-const showHeader = computed(() => appStore.showHeader)
-
-//是否展示footer
-const showFooter = computed(() => appStore.showFooter)
+const { showHeader, showFooter, isPreview } = toRefs(appStore)
 
 //侧边栏的宽度
 const width = computed(() => (appStore.collapse ? '65px' : '210px'))
+
+//水印内容
+const waterMarkText = computed(() => {
+  return [userStore.userInfo?.name || '游客', '管理系统']
+})
 
 //禁止右键菜单
 const onContextmenu = (event) => {

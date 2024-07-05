@@ -4,6 +4,7 @@ import { DEFAULT_PRIMARY } from '@/config/index'
 export const useAppStore = defineStore({
   id: 'system-app',
   state: () => ({
+    isPreview: false,
     layoutRoute: null,
     collapse: false,
     primary: DEFAULT_PRIMARY,

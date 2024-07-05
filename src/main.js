@@ -14,5 +14,5 @@ const app = createApp(App)
 Object.keys(Icons).forEach((key) => {
   app.component(key, Icons[key])
 })
-app.use(ElementPlus).use(pinia).use(router).use(i18n)
-app.mount('#app')
+//未使用auto-import自动导入组件 因为在componetIs渲染组件时无法被渲染
+app.use(ElementPlus).use(pinia).use(router).use(i18n).mount('#app')

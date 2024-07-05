@@ -4,7 +4,7 @@
 
 <script setup lang="jsx" name="TableColumn">
 import { inject, ref, useSlots } from 'vue'
-import { handleProp, filterEnum, formatValue, handleRowAccordingToProp } from '../dist/util'
+import { handleProp, filterEnum, formatValue, handleRowAccordingToProp } from '../common/util'
 
 /**
  * columnType:
@@ -44,22 +44,24 @@ const getTagType = (item, scope) => {
 const RenderTableColumn = (item) => {
   return (
     <>
-      <el-table-column {...item} align={item.align ?? 'center'} showOverflowTooltip={item.showOverflowTooltip ?? item.prop !== 'operation'}>
-        {{
-          default: (scope) => {
-            if (item._children) return item._children.map((child) => RenderTableColumn(child))
-            if (item.render) return item.render(scope)
-            if (slots[handleProp(item.prop)]) return slots[handleProp(item.prop)](scope)
-            if (item.tag) return <el-tag type={getTagType(item, scope)}>{renderCellData(item, scope)}</el-tag>
-            return renderCellData(item, scope)
-          },
-          handler: (scope) => {
-            if (item.headerRender) return item.headerRender(scope)
-            if (slots[`${handleProp(item.prop)}Header`]) return slots[`${handleProp(item.prop)}Header`](scope)
-            return item.label
-          },
-        }}
-      </el-table-column>
+      {item.isShow && (
+        <el-table-column {...item} align={item.align ?? 'center'} showOverflowTooltip={item.showOverflowTooltip ?? item.prop !== 'operation'}>
+          {{
+            default: (scope) => {
+              if (item._children) return item._children.map((child) => RenderTableColumn(child))
+              if (item.render) return item.render(scope)
+              if (slots[handleProp(item.prop)]) return slots[handleProp(item.prop)](scope)
+              if (item.tag) return <el-tag type={getTagType(item, scope)}>{renderCellData(item, scope)}</el-tag>
+              return renderCellData(item, scope)
+            },
+            header: (scope) => {
+              if (item.headerRender) return item.headerRender(scope)
+              if (slots[`${handleProp(item.prop)}Header`]) return slots[`${handleProp(item.prop)}Header`](scope)
+              return item.label
+            },
+          }}
+        </el-table-column>
+      )}
     </>
   )
 }

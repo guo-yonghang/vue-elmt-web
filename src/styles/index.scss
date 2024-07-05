@@ -3,7 +3,7 @@
 @use 'element-plus/theme-chalk/src/message-box.scss' as *;
 @use './common.scss' as *;
 @use './reset.scss' as *;
-@use '@/components/SuperTable/dist/index.scss' as *;
+@use '@/components/SuperTable/common/index.scss' as *;
 @import 'element-plus/dist/index.css';
 @import 'nprogress/nprogress.css';
 

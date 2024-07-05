@@ -8,18 +8,18 @@ import resultRoutes from '@/assets/json/resultRoutes.json'
 const views = import.meta.glob('../views/**/*.vue')
 
 //初始化layout路由
-export const initLayoutRoute = (layoutPath) => {
+export const initLayoutRoute = () => {
   const appStore = useAppStore()
   const tabStore = useTabStore()
-  const children = getChilrenRoute(menuList.concat(resultRoutes))
-  if (layoutPath === '/preview') {
-    children.forEach((item) => {
-      item.path = `/preview${item.path}`
-      item.name = `/preview${item.path}`
-    })
-  }
+  const defaultChildren = getChilrenRoute(menuList.concat(resultRoutes))
+  const previewChildren = getChilrenRoute(menuList.concat(resultRoutes))
+  previewChildren.forEach((item) => {
+    item.path = `/preview${item.path}`
+    item.name = `/preview${item.name}`
+  })
+  const children = defaultChildren.concat(previewChildren)
   const layout = {
-    path: layoutPath,
+    path: '/layout',
     name: 'layout',
     component: markRaw(Layout),
     redirect: children[0].name,
@@ -42,7 +42,7 @@ const getChilrenRoute = (list) => {
       meta: { title: title, icon, type, visible, keepAlive, needLogin },
     }
     if (type === 2) {
-      obj.component = views[`../views${path}.vue`]
+      obj.component = views[`../views${name}.vue`]
       res.push(obj)
     }
     if (type === 1 && children.length) {

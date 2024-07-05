@@ -1,5 +1,11 @@
 <template>
-  <component :is="column.search?.render || `el-${column.search?.el}`" v-bind="{ ...handleSearchProps, ...placeholder, clearable }">
+  <component
+    :is="column.search?.render || `el-${column.search?.el}`"
+    v-bind="{ ...handleSearchProps, ...placeholder, searchParam: _searchParam, clearable }"
+    v-model.trim="_searchParam[column.search?.key || handleProp(column.prop)]"
+    :data="column.search?.el === 'tree-select' ? columnEnum : []"
+    :options="['cascader', 'select-v2'].includes(column.search?.el) ? columnEnum : []"
+  >
     <template v-if="column.search?.el === 'cascader'" #default="{ data }">
       <span>{{ data[fieldNames.label] }}</span>
     </template>
@@ -12,7 +18,7 @@
 
 <script setup>
 import { computed, inject, ref } from 'vue'
-import { handleProp } from '../dist/util'
+import { handleProp } from '../common/util'
 
 const props = defineProps({
   column: Object,
@@ -24,9 +30,12 @@ const _searchParam = computed(() => props.searchParam)
 // 判断 fieldNames 设置 label && value && children 的 key 值
 const fieldNames = computed(() => {
   return {
-    label: props.column.fieldNames?.label || 'label',
-    value: props.column.fieldNames?.value || 'value',
-    children: props.column.fieldNames?.children || 'children',
+    label: 'label',
+    value: 'value',
+    children: 'children',
+    // label: props.column.fieldNames?.label || 'label',
+    // value: props.column.fieldNames?.value || 'value',
+    // children: props.column.fieldNames?.children || 'children',
   }
 })
 
@@ -37,6 +46,7 @@ const columnEnum = computed(() => {
   if (!enumData) return []
   if (props.column.search?.el === 'select-v2' && props.column.fieldNames) {
     enumData = enumData.map((item) => {
+      console.log('fieldNames', fieldNames.value)
       return { ...item, label: item[fieldNames.value.label], value: item[fieldNames.value.value] }
     })
   }

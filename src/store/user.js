@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 export const useUserStore = defineStore({
   id: 'system-user',
   state: () => ({
+    token: '',
     userInfo: {},
   }),
   getters: {},
@@ -10,6 +11,6 @@ export const useUserStore = defineStore({
   persist: {
     key: 'persist-user',
     storage: window.localStorage,
-    paths: ['userInfo'],
+    paths: ['token', 'userInfo'],
   },
 })

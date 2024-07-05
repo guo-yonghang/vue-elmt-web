@@ -22,11 +22,11 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useAppStore } from '@/store/index'
+import { useUserStore } from '@/store/index'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const router = useRouter()
-const appStore = useAppStore()
+const userStore = useUserStore()
 
 //语言变化
 const onSelectItem = (value) => {
@@ -37,6 +37,8 @@ const onSelectItem = (value) => {
     ElMessageBox.confirm('确认要退出登录吗？', '温馨提示', { type: 'warning' })
       .then(() => {
         ElMessage.success('已退出')
+        userStore.token = ''
+        router.replace('/login')
       })
       .catch(() => {})
   }

@@ -5,7 +5,7 @@
 <script setup>
 import { Sunny, Moon } from '@element-plus/icons-vue'
 import { useAppStore } from '@/store/index'
-import { useSetting } from '@/hooks/useSetting'
+import { useSetting } from '@/hooks/index'
 
 const appStore = useAppStore()
 const { updatePrimary } = useSetting()

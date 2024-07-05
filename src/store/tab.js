@@ -11,14 +11,15 @@ export const useTabStore = defineStore({
   actions: {
     //添加tab
     addTab(route) {
-      if (!route.meta.keepAlive) return
-      if (!this.tabList.some((item) => item.path === route.path)) {
-        const funKey = route.path === this.homePath ? 'unshift' : 'push'
+      const { path, meta, params } = route
+      if (!meta.keepAlive) return
+      if (!this.tabList.some((item) => item.path === path)) {
+        const funKey = path === this.homePath ? 'unshift' : 'push'
         this.tabList[funKey]({
-          path: route.path,
-          title: route.meta.title,
-          enTitle: route.meta.enTitle,
-          icon: route.meta.icon,
+          path,
+          title: `${meta.title}${params.subTitle ? '-' + params.subTitle : ''}`,
+          enTitle: meta.enTitle,
+          icon: meta.icon,
         })
       }
     },

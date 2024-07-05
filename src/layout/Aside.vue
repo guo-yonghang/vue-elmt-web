@@ -1,7 +1,7 @@
 <template>
   <div class="logo-box flxc">
     <img src="https://files.codelife.cc/icons/element-plus.org.svg" alt="" />
-    <span v-show="!collapse">System.Name</span>
+    <span v-show="!collapse">VueElmtWeb</span>
   </div>
   <div class="menu-box">
     <el-scrollbar>

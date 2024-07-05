@@ -9,8 +9,8 @@
     "idx": 1,
     "children": [
       {
-        "path": "/table/superTable",
-        "name": "/table/superTable",
+        "path": "/table/useSuperTable",
+        "name": "/table/useSuperTable",
         "title": "超级表格",
         "type": 2,
         "keepAlive": true,
@@ -20,8 +20,8 @@
         "needLogin":true
       },
       {
-        "path": "/table/baseTable",
-        "name": "/table/baseTable",
+        "path": "/table/useBaseTable",
+        "name": "/table/useBaseTable",
         "title": "基础表格",
         "type": 2,
         "keepAlive": true,
@@ -29,6 +29,16 @@
         "idx": 2,
         "icon": "Menu",
         "needLogin":true
+      },{
+        "path": "/table/userDetail/:id/:subTitle",
+        "name": "/table/userDetail",
+        "title": "客户详情",
+        "type": 2,
+        "keepAlive": true,
+        "visible": false,
+        "idx": 3,
+        "icon": "Menu",
+        "needLogin":false
       }
     ]
   },{

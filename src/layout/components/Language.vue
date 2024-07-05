@@ -1,5 +1,8 @@
 <template>
-  <el-switch v-model="appStore.language" inline-prompt inactive-value="zh" active-value="en" inactive-text="英" active-text="中" @change="updateLanguage" />
+  <el-radio-group v-model="appStore.language" size="small" @change="updateLanguage">
+    <el-radio-button label="中文" value="zh" />
+    <el-radio-button label="英文" value="en" />
+  </el-radio-group>
 </template>
 
 <script setup>

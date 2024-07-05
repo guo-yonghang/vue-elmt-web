@@ -21,7 +21,7 @@ const keepAliveList = computed(() => {
 })
 
 //获取所有的缓存的列表
-const getKeepAliveNames = (list) => {
+const getKeepAliveNames = (list = []) => {
   const result = []
   list.forEach((item) => {
     if (item.meta?.type === 2 && item.meta?.keepAlive) {

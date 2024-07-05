@@ -1,24 +1,16 @@
 {
-    "compilerOptions": {
-      "allowJs": true,
-      "target": "ESNext",
-      "module": "ESNext",
-      "moduleResolution": "Node",
-      "jsx": "preserve",
-      "jsxImportSource": "vue",
-      "baseUrl": "./",
-      "paths": {
-        "@/*": [
-          "src/*"
-        ],
-        "@": [
-          "src"
-        ]
-      },
-      "lib": [
-        "ESNext",
-        "DOM",
-      ]
-    }
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@": ["src"]
+    },
+    "lib": ["ESNext", "DOM"]
   }
-  
+}

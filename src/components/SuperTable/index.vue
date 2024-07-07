@@ -39,7 +39,7 @@
       <el-space>
         <slot name="toolButton">
           <el-button v-if="showToolButton('refresh')" :icon="Refresh" circle @click="getTableList" />
-          <el-button v-if="showToolButton('setting') && columns.length" :icon="Operation" circle @click="openColSet" />
+          <el-button v-if="showToolButton('setting') && colSetting.length" :icon="Operation" circle @click="openColSet" />
           <el-button v-if="showToolButton('search') && searchColumns?.length" :icon="Search" circle @click="showSearch = !showSearch" />
         </slot>
       </el-space>
@@ -91,11 +91,11 @@
       <Pagination v-if="pagination" :pageable="pageable" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange" />
     </slot>
   </div>
-  <ColSetting v-if="showToolButton('setting')" ref="colsetContext" v-model:colSetting="colSetting" />
+  <ColSetting v-if="showToolButton('setting')" ref="colsetContext" v-model:col-setting="colSetting" />
 </template>
 
 <script setup name="SuperTable">
-import { ref, reactive, unref, computed, onMounted, provide, watch } from 'vue'
+import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
 import { Search, Refresh, Delete, ArrowDown, ArrowUp, Operation } from '@element-plus/icons-vue'
 import { useElementSize } from '@vueuse/core'
 import { useTableHook } from './common/table'
@@ -179,7 +179,7 @@ onMounted(() => {
 //接收columns设置为响应式
 const tableColumns = reactive(props.columns)
 
-//扁平化以便于colSetting
+//扁平化以便于searchCol
 const flatColumns = computed(() => flatColumnsFunc(tableColumns))
 
 //enumMap 存储所有的emnu值
@@ -196,14 +196,14 @@ const setEnumMap = async ({ prop, enum: enumValue }) => {
 provide('enumMap', enumMap)
 
 //扁平化columns数组
-const flatColumnsFunc = (columns) => {
-  const flatArr = []
+const flatColumnsFunc = (columns, flatArr = []) => {
   columns.forEach(async (col) => {
     if (col._children?.length) flatArr.push(...flatColumnsFunc(col._children))
     flatArr.push(col)
 
-    // column 添加默认 isShow && isFilterEnum 属性值
+    // column 添加默认 isShow && isSetting && isFilterEnum 属性值
     col.isShow = col.isShow || true
+    col.isSetting = col.isSetting || true
     col.isFilterEnum = col.isFilterEnum || true
 
     // 设置 enumMap
@@ -231,8 +231,8 @@ searchColumns.value?.forEach((column, index) => {
 //列设置相关==>过滤掉不需要的列
 const colsetContext = ref()
 const colSetting = tableColumns.filter((item) => {
-  const { type, prop, isShow } = item
-  return !columnTypes.includes(type) && prop !== 'operation' && isShow
+  const { type, prop, isSetting } = item
+  return !columnTypes.includes(type) && prop !== 'operation' && isSetting
 })
 const openColSet = () => colsetContext.value.open()
 

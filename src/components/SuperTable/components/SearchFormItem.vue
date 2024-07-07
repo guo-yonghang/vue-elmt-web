@@ -21,7 +21,10 @@ import { computed, inject, ref } from 'vue'
 import { handleProp } from '../common/util'
 
 const props = defineProps({
-  column: Object,
+  column: {
+    type: Object,
+    default: () => ({}),
+  },
   searchParam: Object,
 })
 
@@ -30,12 +33,9 @@ const _searchParam = computed(() => props.searchParam)
 // 判断 fieldNames 设置 label && value && children 的 key 值
 const fieldNames = computed(() => {
   return {
-    label: 'label',
-    value: 'value',
-    children: 'children',
-    // label: props.column.fieldNames?.label || 'label',
-    // value: props.column.fieldNames?.value || 'value',
-    // children: props.column.fieldNames?.children || 'children',
+    label: props.column.fieldNames?.label || 'label',
+    value: props.column.fieldNames?.value || 'value',
+    children: props.column.fieldNames?.children || 'children',
   }
 })
 

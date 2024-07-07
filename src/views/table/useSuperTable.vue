@@ -78,8 +78,8 @@ const columns = reactive([
     // 字典请求不带参数
     // enum: getUserGender,
     enum: [
-      { label: '男', value: 1 },
-      { label: '女', value: 0 },
+      { genderLabel: '男', genderValue: 1 },
+      { genderLabel: '女', genderValue: 2 },
     ],
     // 字典请求携带参数
     // enum: () => getUserGender({ id: 1 }),
@@ -110,8 +110,8 @@ const columns = reactive([
     prop: 'status',
     label: '用户状态',
     enum: [
-      { label: '启用', value: 1 },
-      { label: '禁用', value: 0 },
+      { userLabel: '启用', userStatus: 1 },
+      { userLabel: '禁用', userStatus: 0 },
     ],
     search: { el: 'tree-select', props: { filterable: true } },
     fieldNames: { label: 'userLabel', value: 'userStatus' },

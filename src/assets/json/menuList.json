@@ -5,7 +5,7 @@
     "title": "数据表格",
     "type": 1,
     "icon": "Tickets",
-    "visible":true,
+    "visible": true,
     "idx": 1,
     "children": [
       {
@@ -17,7 +17,7 @@
         "visible": true,
         "idx": 1,
         "icon": "Menu",
-        "needLogin":true
+        "needLogin": true
       },
       {
         "path": "/table/useBaseTable",
@@ -28,8 +28,9 @@
         "visible": true,
         "idx": 2,
         "icon": "Menu",
-        "needLogin":true
-      },{
+        "needLogin": true
+      },
+      {
         "path": "/table/userDetail/:id/:subTitle",
         "name": "/table/userDetail",
         "title": "客户详情",
@@ -38,49 +39,84 @@
         "visible": false,
         "idx": 3,
         "icon": "Menu",
-        "needLogin":false
+        "needLogin": false
       }
     ]
-  },{
+  },
+  {
     "path": "/form",
     "name": "form",
     "title": "数据表单",
     "type": 1,
     "icon": "Tickets",
-    "visible":true,
+    "visible": true,
     "idx": 2,
     "children": [
       {
-        "path": "/form/superForm",
-        "name": "/form/superForm",
+        "path": "/form/useSuperForm",
+        "name": "/form/useSuperForm",
         "title": "超级表单",
         "type": 2,
         "keepAlive": true,
         "visible": true,
         "idx": 1,
         "icon": "Menu",
-        "needLogin":true
+        "needLogin": true
       },
       {
-        "path": "/form/baseForm",
-        "name": "/form/baseForm",
+        "path": "/form/useBaseForm",
+        "name": "/form/useBaseForm",
         "title": "基础表单",
         "type": 2,
         "keepAlive": true,
         "visible": true,
         "idx": 2,
         "icon": "Menu",
-        "needLogin":true
+        "needLogin": true
       }
     ]
-  },{
+  },
+  {
+    "path": "/upload",
+    "name": "upload",
+    "title": "文件上传",
+    "type": 1,
+    "icon": "Tickets",
+    "visible": true,
+    "idx": 2,
+    "children": [
+      {
+        "path": "/upload/useSuperUpload",
+        "name": "/upload/useSuperUpload",
+        "title": "超级上传",
+        "type": 2,
+        "keepAlive": true,
+        "visible": true,
+        "idx": 1,
+        "icon": "Menu",
+        "needLogin": true
+      },
+      {
+        "path": "/upload/useBaseUpload",
+        "name": "/upload/useBaseUpload",
+        "title": "基础上传",
+        "type": 2,
+        "keepAlive": true,
+        "visible": true,
+        "idx": 2,
+        "icon": "Menu",
+        "needLogin": true
+      }
+    ]
+  },
+  {
     "path": "/myself",
     "name": "myself",
     "title": "我的店铺",
     "type": 1,
     "icon": "Tickets",
-    "visible":true,
-    "idx": 2,
+    "visible": true,
+    "idx": 3,
     "children": [
       {
         "path": "/myself/infomation",
@@ -91,7 +127,7 @@
         "visible": true,
         "idx": 1,
         "icon": "Menu",
-        "needLogin":true
+        "needLogin": true
       }
     ]
   }

@@ -42,7 +42,7 @@ const getChilrenRoute = (list) => {
       meta: { title: title, icon, type, visible, keepAlive, needLogin },
     }
     if (type === 2) {
-      obj.component = views[`../views${name}.vue`]
+      obj.component = views[`../views${name}/index.vue`]
       res.push(obj)
     }
     if (type === 1 && children.length) {

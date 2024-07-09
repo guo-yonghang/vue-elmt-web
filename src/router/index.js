@@ -24,17 +24,17 @@ const router = createRouter({
     {
       path: '/403',
       name: '403',
-      component: () => import('@/views/error/403.vue'),
+      component: () => import('@/views/error/403/index.vue'),
     },
     {
       path: '/500',
       name: '500',
-      component: () => import('@/views/error/500.vue'),
+      component: () => import('@/views/error/500/index.vue'),
     },
     {
       path: '/:pathMatch(.*)',
       name: '404',
-      component: () => import('@/views/error/404.vue'),
+      component: () => import('@/views/error/404/index.vue'),
     },
   ],
   scrollBehavior() {

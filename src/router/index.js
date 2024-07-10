@@ -13,7 +13,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       redirect: 'layout',
-      //layout下的路由有visible、keepAlive、needLogin的概念，其他的没有
+      //layout下的路由有visible、keepAlive、showTab、needLogin的概念，其他的没有
     },
     {
       path: '/login',
@@ -71,6 +71,10 @@ router.beforeEach((to, from, next) => {
   //如果去往的是登录页面且已经有token了则返回
   if (to.fullPath === '/login' && userStore.token) {
     return next(from)
+  }
+  //如果需要登录且没有菜单权限
+  if (to.meta.needLogin && !userStore.authMenuList.includes(to.name)) {
+    return next({ path: '/403' })
   }
   next()
 })

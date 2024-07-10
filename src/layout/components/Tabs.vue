@@ -10,11 +10,11 @@
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :icon="Refresh" @click="onRefresh(index)" v-if="item.path === tabValue">刷新</el-dropdown-item>
-                <el-dropdown-item :icon="DArrowLeft" @click="tabStore.delTabLeft(index)" v-if="index > 0">关闭左侧</el-dropdown-item>
-                <el-dropdown-item :icon="DArrowRight" @click="tabStore.delTabRight(index, tabValue)" v-if="index < tabStore.tabList.length - 1">关闭右侧</el-dropdown-item>
-                <el-dropdown-item :icon="Remove" @click="tabStore.delTabOther(index)">关闭其他</el-dropdown-item>
-                <el-dropdown-item :icon="CircleClose" @click="tabStore.delTabAll">关闭所有</el-dropdown-item>
+                <el-dropdown-item :icon="Refresh" @click="onRefresh(index)" v-if="item.path === tabValue">{{ $t('tabs.refresh') }}</el-dropdown-item>
+                <el-dropdown-item :icon="DArrowLeft" @click="tabStore.delTabLeft(index)" v-if="index > 0">{{ $t('tabs.closeLeft') }}</el-dropdown-item>
+                <el-dropdown-item :icon="DArrowRight" @click="tabStore.delTabRight(index, tabValue)" v-if="index < tabStore.tabList.length - 1">{{ $t('tabs.closeRight') }}</el-dropdown-item>
+                <el-dropdown-item :icon="Remove" @click="tabStore.delTabOther(index)">{{ $t('tabs.closeOther') }}</el-dropdown-item>
+                <el-dropdown-item :icon="CircleClose" @click="tabStore.delTabAll">{{ $t('tabs.closeAll') }}</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>

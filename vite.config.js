@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { createVitePugins } from './vite-plugins'
 
 export default defineConfig({
+  base: './',
   plugins: createVitePugins(),
   resolve: {
     alias: {

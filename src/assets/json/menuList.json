@@ -13,10 +13,11 @@
         "name": "/table/useSuperTable",
         "title": "超级表格",
         "type": 2,
-        "keepAlive": true,
-        "visible": true,
         "idx": 1,
         "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
         "needLogin": true
       },
       {
@@ -24,10 +25,11 @@
         "name": "/table/useBaseTable",
         "title": "基础表格",
         "type": 2,
-        "keepAlive": true,
-        "visible": true,
         "idx": 2,
         "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
         "needLogin": true
       },
       {
@@ -35,10 +37,11 @@
         "name": "/table/userDetail",
         "title": "客户详情",
         "type": 2,
-        "keepAlive": true,
-        "visible": false,
         "idx": 3,
         "icon": "Menu",
+        "keepAlive": true,
+        "visible": false,
+        "showTab": true,
         "needLogin": false
       }
     ]
@@ -57,10 +60,11 @@
         "name": "/form/useSuperForm",
         "title": "超级表单",
         "type": 2,
-        "keepAlive": true,
-        "visible": true,
         "idx": 1,
         "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
         "needLogin": true
       },
       {
@@ -68,10 +72,11 @@
         "name": "/form/useBaseForm",
         "title": "基础表单",
         "type": 2,
-        "keepAlive": true,
-        "visible": true,
         "idx": 2,
         "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
         "needLogin": true
       }
     ]
@@ -90,10 +95,11 @@
         "name": "/upload/useSuperUpload",
         "title": "超级上传",
         "type": 2,
-        "keepAlive": true,
-        "visible": true,
         "idx": 1,
         "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
         "needLogin": true
       },
       {
@@ -101,10 +107,11 @@
         "name": "/upload/useBaseUpload",
         "title": "基础上传",
         "type": 2,
-        "keepAlive": true,
-        "visible": true,
         "idx": 2,
         "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
         "needLogin": true
       }
     ]
@@ -123,11 +130,24 @@
         "name": "/myself/infomation",
         "title": "店铺信息",
         "type": 2,
-        "keepAlive": true,
-        "visible": true,
         "idx": 1,
         "icon": "Menu",
-        "needLogin": true
+        "keepAlive": true,
+        "visible": true,
+        "needLogin": true,
+        "showTab": true
+      },
+      {
+        "path": "/myself/noauth",
+        "name": "/myself/noauth",
+        "title": "无权限演示",
+        "type": 2,
+        "idx": 2,
+        "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "needLogin": true,
+        "showTab": true
       }
     ]
   }

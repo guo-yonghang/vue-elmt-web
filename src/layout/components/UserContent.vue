@@ -9,11 +9,11 @@
       <el-dropdown-menu>
         <el-dropdown-item command="info">
           <el-icon><User /></el-icon>
-          <span>我的信息</span>
+          <span>{{ $t('header.infomation') }}</span>
         </el-dropdown-item>
         <el-dropdown-item command="logout">
           <el-icon><SwitchButton /></el-icon>
-          <span>退出登录</span>
+          <span>{{ $t('header.logout') }}</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>

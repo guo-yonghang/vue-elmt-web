@@ -1,3 +1,6 @@
+# Interface
+
+```
 import { TableColumnCtx } from 'element-plus'
 import { Ref, VNode } from 'vue'
 
@@ -67,3 +70,4 @@ type SearchRenderScope = {
   options: EnumProps[]
   data: EnumProps[]
 }
+```

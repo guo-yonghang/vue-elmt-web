@@ -1,52 +1,52 @@
 <template>
-  <el-drawer v-model="visible" title="布局设置" size="290px">
+  <el-drawer v-model="visible" :title="$t('setting.title')" size="290px">
     <el-divider content-position="center">
       <el-icon><Notification /></el-icon>
-      全局主题
+      {{ $t('setting.globalTheme') }}
     </el-divider>
     <div class="setting-item">
-      <span>主题颜色</span>
+      <span>{{ $t('setting.themeColor') }}</span>
       <el-color-picker v-model="primary" :predefine="PRIMARY_LIST" @change="updatePrimary" />
     </div>
     <div class="setting-item">
-      <span>暗黑模式</span>
+      <span>{{ $t('setting.darkMode') }}</span>
       <SwitchDark />
+    </div>
+    <div class="setting-item">
+      <span>{{ $t('setting.language') }}</span>
+      <Language />
     </div>
     <el-divider content-position="center">
       <el-icon><Setting /></el-icon>
-      界面设置
+      {{ $t('setting.layoutConfig') }}
     </el-divider>
     <div class="setting-item">
-      <span>标签栏</span>
+      <span>{{ $t('setting.tabsView') }}</span>
       <el-switch v-model="showTabs" :active-text="getSwitchText(showTabs)" />
     </div>
     <div class="setting-item">
-      <span>标签栏图标</span>
+      <span>{{ $t('setting.tabsIcon') }}</span>
       <el-switch v-model="showTabsIcon" :active-text="getSwitchText(showTabsIcon)" />
     </div>
     <div class="setting-item">
-      <span>页头</span>
+      <span>{{ $t('setting.pageHeader') }}</span>
       <el-switch v-model="showHeader" :active-text="getSwitchText(showHeader)" />
     </div>
     <div class="setting-item">
-      <span>页脚</span>
+      <span>{{ $t('setting.pageFooter') }}</span>
       <el-switch v-model="showFooter" :active-text="getSwitchText(showFooter)" />
     </div>
     <div class="setting-item">
-      <span>水印</span>
+      <span>{{ $t('setting.waterMark') }}</span>
       <el-switch v-model="showWaterMark" :active-text="getSwitchText(showWaterMark)" />
     </div>
     <div class="setting-item">
-      <span>语言</span>
-      <Language />
-    </div>
-    <div class="setting-item">
-      <span>组件尺寸</span>
-      <el-radio-group v-model="comSize" size="small">
-        <el-radio-button label="小型" value="small"></el-radio-button>
-        <el-radio-button label="中型" value="default"></el-radio-button>
-        <el-radio-button label="大型" value="large"></el-radio-button>
-      </el-radio-group>
+      <span>{{ $t('setting.componentSize') }}</span>
+      <el-select v-model="comSize" style="width: 80px">
+        <el-option label="小型" value="small"></el-option>
+        <el-option label="中型" value="default"></el-option>
+        <el-option label="大型" value="large"></el-option>
+      </el-select>
     </div>
   </el-drawer>
   <div class="setting-box flxc" @click="visible = true" v-if="!showHeader || isPreview">
@@ -61,15 +61,15 @@
 
 <script setup>
 import { ref, computed, toRefs } from 'vue'
-import { useRoute } from 'vue-router'
 import { useAppStore, useUserStore } from '@/store/index'
 import { useSetting } from '@/hooks/index'
+import { useI18n } from 'vue-i18n'
 import { PRIMARY_LIST } from '@/config/index'
 import mittBus from '@/utils/mittBus'
 import SwitchDark from './SwitchDark.vue'
 import Language from './Language.vue'
 
-const route = useRoute()
+const { t } = useI18n()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const visible = ref(false)
@@ -81,7 +81,7 @@ mittBus.on('openSettings', () => (visible.value = true))
 
 //开关的文本内容
 const getSwitchText = (value) => {
-  return value ? '显示' : '隐藏'
+  return value ? t('setting.show') : t('setting.hide')
 }
 
 //水印内容

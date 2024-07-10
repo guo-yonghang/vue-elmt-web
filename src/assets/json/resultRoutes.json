@@ -1,29 +1,47 @@
-[
-  {
-    "path": "/result/success",
-    "name": "/result/success",
-    "title": "成功",
-    "type": 2,
-    "keepAlive": false,
-    "visible": true,
-    "idx": 1001
-  },
-  {
-    "path": "/result/warning",
-    "name": "/result/warning",
-    "title": "警告",
-    "type": 2,
-    "keepAlive": false,
-    "visible": true,
-    "idx": 1002
-  },
-  {
-    "path": "/result/error",
-    "name": "/result/error",
-    "title": "错误",
-    "type": 2,
-    "keepAlive": false,
-    "visible": true,
-    "idx": 1003
-  }
-]
+{
+  "path": "/result",
+  "name": "result",
+  "title": "结果页",
+  "type": 1,
+  "visible": false,
+  "icon": "Tickets",
+  "idx": 1001,
+  "children": [
+    {
+      "path": "/result/success",
+      "name": "/result/success",
+      "title": "成功",
+      "type": 2,
+      "icon": "Menu",
+      "idx": 1,
+      "keepAlive": false,
+      "visible": false,
+      "showTab": false,
+      "needLogin": true
+    },
+    {
+      "path": "/result/warning",
+      "name": "/result/warning",
+      "title": "警告",
+      "type": 2,
+      "icon": "Menu",
+      "idx": 2,
+      "keepAlive": false,
+      "visible": false,
+      "showTab": false,
+      "needLogin": true
+    },
+    {
+      "path": "/result/error",
+      "name": "/result/error",
+      "title": "错误",
+      "type": 2,
+      "icon": "Menu",
+      "idx": 3,
+      "keepAlive": false,
+      "visible": false,
+      "showTab": false,
+      "needLogin": true
+    }
+  ]
+}

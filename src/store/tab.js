@@ -12,7 +12,7 @@ export const useTabStore = defineStore({
     //添加tab
     addTab(route) {
       const { path, meta, params } = route
-      if (!meta.keepAlive) return
+      if (!meta.showTab) return
       if (!this.tabList.some((item) => item.path === path)) {
         const funKey = path === this.homePath ? 'unshift' : 'push'
         this.tabList[funKey]({

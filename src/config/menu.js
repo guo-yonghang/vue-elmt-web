@@ -11,8 +11,9 @@ const views = import.meta.glob('../views/**/*.vue')
 export const initLayoutRoute = () => {
   const appStore = useAppStore()
   const tabStore = useTabStore()
-  const defaultChildren = getChilrenRoute(menuList.concat(resultRoutes))
-  const previewChildren = getChilrenRoute(menuList.concat(resultRoutes))
+  menuList.push(resultRoutes)
+  const defaultChildren = getChilrenRoute(menuList)
+  const previewChildren = getChilrenRoute(menuList)
   previewChildren.forEach((item) => {
     item.path = `/preview${item.path}`
     item.name = `/preview${item.name}`
@@ -35,11 +36,11 @@ const getChilrenRoute = (list) => {
   list.sort((a, b) => a.idx - b.idx)
   const res = []
   for (let i = 0, len = list.length; i < len; i++) {
-    const { path, name, title, icon = '', type, visible = true, keepAlive = true, needLogin = false, children = [] } = list[i]
+    const { path, name, title, icon = '', type, visible = true, keepAlive = true, showTab = true, needLogin = false, children = [] } = list[i]
     const obj = {
       path,
       name,
-      meta: { title: title, icon, type, visible, keepAlive, needLogin },
+      meta: { title: title, icon, type, visible, keepAlive, showTab, needLogin },
     }
     if (type === 2) {
       obj.component = views[`../views${name}/index.vue`]

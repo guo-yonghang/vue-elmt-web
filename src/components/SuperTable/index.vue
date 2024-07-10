@@ -98,9 +98,7 @@
 import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
 import { Search, Refresh, Delete, ArrowDown, ArrowUp, Operation } from '@element-plus/icons-vue'
 import { useElementSize } from '@vueuse/core'
-import { useTableHook } from './common/table'
-import { useSelection } from './common/selection'
-import { properties } from './common/props'
+import { useTableHook, useSelection } from './common/hooks'
 import { handleProp } from './common/util'
 import Sortable from 'sortablejs'
 import TableColumn from './components/TableColumn.vue'
@@ -108,7 +106,18 @@ import Pagination from './components/Pagination.vue'
 import ColSetting from './components/ColSetting.vue'
 import SearchFormItem from './components/SearchFormItem.vue'
 
-const props = defineProps(properties)
+const props = defineProps({
+  rowKey: { type: String, default: 'id' },
+  data: { type: Array, default: () => [] },
+  columns: { type: Array, default: () => [] },
+  initParams: { type: Object, default: () => ({}) },
+  pagination: { type: Boolean, default: true },
+  toolButton: { type: Array, default: () => ['refresh', 'setting', 'search'] },
+  autoRequest: { type: Boolean, default: true },
+  requestApi: { type: Function, default: () => {} },
+  dataCallBack: { type: Function, default: () => {} },
+  requestError: { type: Function, default: () => {} },
+})
 const emits = defineEmits(['search', 'reset', 'dargSort'])
 
 //使用hook函数
@@ -270,3 +279,7 @@ defineExpose({
   selectedListIds,
 })
 </script>
+
+<style lang="scss">
+@import './common/index.scss';
+</style>

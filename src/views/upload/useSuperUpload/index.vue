@@ -1,9 +1,12 @@
 <template>
   <div>
     <el-form>
-      <SuperUploadImage v-model:file-list="list" useInput />
+      <SuperUploadImage v-model:file-list="list" useInput :cropper="true" />
     </el-form>
-    <div style="margin-top: 30px">拖拽排序、名称编辑、删除、预览、上传状态等功能</div>
+    <div style="margin-top: 30px">拖拽排序、裁剪、名称编辑、删除、预览、上传状态等功能</div>
+    <div v-for="(item, index) in list" :key="index" style="margin-top: 20px">
+      <span>{{ item }}</span>
+    </div>
   </div>
 </template>
 

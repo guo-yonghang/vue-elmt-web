@@ -49,7 +49,7 @@
       </el-select>
     </div>
   </el-drawer>
-  <div class="setting-box flxc" @click="visible = true" v-if="!showHeader || isPreview">
+  <div class="setting-box flxc" @click="visible = true" v-if="!showHeader && !isPreview">
     <el-icon><Setting /></el-icon>
   </div>
   <div class="watermark-box" v-if="showWaterMark && !isPreview">

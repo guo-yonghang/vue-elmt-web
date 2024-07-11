@@ -30,10 +30,11 @@
     </template>
     <label :for="inputId" class="upload-btn" @click="onLabel">
       <el-icon><Plus /></el-icon>
-      <input :id="inputId" type="file" :accept="accept" :multiple="true" @change="onFileChange" v-if="!_disabled && fileList.length < limit" />
+      <input :id="inputId" type="file" :accept="accept" :multiple="!cropper" @change="onFileChange" v-if="!_disabled && fileList.length < limit" />
     </label>
+    <CropperImg v-model:visible="crop.visible" :img="crop.img" @confirm="onCropConfirm" />
+    <el-image-viewer v-if="preview.visible" :url-list="previewList" :initial-index="preview.index" hide-on-click-modal @close="preview.visible = false" />
   </div>
-  <el-image-viewer v-if="preview.visible" :url-list="previewList" :initial-index="preview.index" hide-on-click-modal @close="preview.visible = false" />
 </template>
 
 <script setup>
@@ -42,6 +43,7 @@ import { ElMessage, formContextKey } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
 import { generateId, sleep } from '@/utils'
 import Sortable from 'sortablejs'
+import CropperImg from '@/components/CropperImg/index.vue'
 
 //组件id
 const componentId = generateId(6, 'upload-box')
@@ -53,12 +55,12 @@ const props = defineProps({
   fileList: { type: Array, default: () => [] },
   disabled: { type: Boolean, default: false },
   limit: { type: Number, default: 5 },
-  fileSize: { type: Number, default: 5 },
   accept: { type: String, default: 'image/*' },
   width: { type: String, default: '120px' },
   height: { type: String, default: '120px' },
   borderRadius: { type: String, default: '6px' },
   useInput: { type: Boolean, default: false },
+  cropper: [Object, Boolean, undefined],
 })
 
 //接收文件列表
@@ -71,6 +73,12 @@ const formContext = inject(formContextKey, void 0)
 const preview = reactive({
   index: 0,
   visible: false,
+})
+
+//裁剪相关内容
+const crop = reactive({
+  visible: false,
+  img: '',
 })
 
 //预览列表
@@ -102,6 +110,16 @@ const onRemove = (index) => {
   current.url.includes('blob:') && URL.revokeObjectURL(current.url)
 }
 
+//裁剪完成
+const onCropConfirm = (data) => {
+  fileList.value.push({
+    id: generateId(6, 'itemId'),
+    name: '',
+    url: data,
+    status: 'success',
+  })
+}
+
 //表单内容变化
 const onFileChange = (event) => {
   const { files } = event.target
@@ -109,18 +127,19 @@ const onFileChange = (event) => {
     return ElMessage.warning('最多只能上传' + props.limit + '张图片')
   }
   Array.from(files).forEach((file) => {
-    if (file.size / 1024 / 1024 > props.fileSize) {
-      ElMessage.warning('文件大小不能超过' + props.fileSize + 'M')
+    const url = URL.createObjectURL(file)
+    if (props.cropper) {
+      crop.img = url
+      crop.visible = true
     } else {
-      const url = URL.createObjectURL(file)
       fileList.value.push({
         id: generateId(6, 'itemId'),
         name: file.name,
         url,
         status: 'success',
       })
-      event.target.value = ''
     }
+    event.target.value = ''
   })
 }
 

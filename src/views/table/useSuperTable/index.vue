@@ -3,7 +3,7 @@
     <SuperTable :data="tableData" :columns="columns" stripe :auto-request="false">
       <template #tableHeader="scope">
         <el-button type="primary" :icon="CirclePlus">新增用户</el-button>
-        <el-button type="danger" :icon="Delete" plain :disabled="!scope.isSelected"> 删除用户 </el-button>
+        <el-button type="danger" :icon="Delete" plain :disabled="!scope.isSelected"> 删除用户</el-button>
       </template>
       <template #expand="scope">
         {{ scope.row }}

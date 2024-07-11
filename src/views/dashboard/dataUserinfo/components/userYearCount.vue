@@ -42,16 +42,10 @@ const option = {
   },
   tooltip: {
     trigger: 'axis',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    borderColor: 'transparent',
-    textStyle: {
-      color: '#ffffff',
-    },
   },
   series: [
     {
       name: '人数',
-      // type: 'line',
       stack: 'Total',
       type: 'bar',
       showBackground: false,

@@ -16,11 +16,6 @@ const pcData = [1256, 4124, 5241, 5435, 3019, 10000]
 const option = {
   tooltip: {
     trigger: 'axis',
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    borderColor: 'transparent',
-    textStyle: {
-      color: '#ffffff',
-    },
   },
   legend: {
     data: ['移动端人数', 'PC端人数'],

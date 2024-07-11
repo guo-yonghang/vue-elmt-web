@@ -1,7 +1,7 @@
 <template>
-  <div>infomation</div>
+  <div>information</div>
 </template>
 
-<script setup name="/myself/infomation"></script>
+<script setup name="/myself/information"></script>
 
 <style></style>

@@ -1,12 +1,47 @@
 [
   {
+    "path": "/dashboard",
+    "name": "dashboard",
+    "title": "统计报表",
+    "type": 1,
+    "icon": "Odometer",
+    "visible": true,
+    "idx": 1,
+    "children": [
+      {
+        "path": "/dashboard/dataAccess",
+        "name": "/dashboard/dataAccess",
+        "title": "访问数据",
+        "type": 2,
+        "idx": 1,
+        "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
+        "needLogin": true
+      },
+      {
+        "path": "/dashboard/dataUserinfo",
+        "name": "/dashboard/dataUserinfo",
+        "title": "用户数据",
+        "type": 2,
+        "idx": 2,
+        "icon": "Menu",
+        "keepAlive": true,
+        "visible": true,
+        "showTab": true,
+        "needLogin": true
+      }
+    ]
+  },
+  {
     "path": "/table",
     "name": "table",
     "title": "数据表格",
     "type": 1,
-    "icon": "Tickets",
+    "icon": "Grid",
     "visible": true,
-    "idx": 1,
+    "idx": 2,
     "children": [
       {
         "path": "/table/useSuperTable",
@@ -53,7 +88,7 @@
     "type": 1,
     "icon": "Tickets",
     "visible": true,
-    "idx": 2,
+    "idx": 3,
     "children": [
       {
         "path": "/form/useSuperForm",
@@ -86,9 +121,9 @@
     "name": "upload",
     "title": "文件上传",
     "type": 1,
-    "icon": "Tickets",
+    "icon": "FolderAdd",
     "visible": true,
-    "idx": 2,
+    "idx": 4,
     "children": [
       {
         "path": "/upload/useSuperUpload",
@@ -121,9 +156,9 @@
     "name": "myself",
     "title": "我的店铺",
     "type": 1,
-    "icon": "Tickets",
+    "icon": "Shop",
     "visible": true,
-    "idx": 3,
+    "idx": 5,
     "children": [
       {
         "path": "/myself/infomation",

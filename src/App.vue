@@ -7,18 +7,15 @@
 <script setup>
 import { computed } from 'vue'
 import { useAppStore } from '@/store/index'
-import { useSetting, useLaunch } from '@/hooks/index'
+import { useLaunch } from '@/hooks/index'
 
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import en from 'element-plus/dist/locale/en.mjs'
 
 const appStore = useAppStore()
-const { updatePrimary, updateLanguage } = useSetting()
 
 //初始化
 useLaunch()
-updatePrimary()
-updateLanguage()
 
 //语言
 const locale = computed(() => (appStore.language === 'zh' ? zhCn : en))

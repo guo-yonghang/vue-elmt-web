@@ -1,6 +1,6 @@
 <template>
   <el-dialog v-model="visible" title="图片裁剪" width="750px" align-center>
-    <VueCropper ref="cropper" style="height: 700px" :fixed="fixed" :centerBox="centerBox" :autoCrop="autoCrop" :maxImgSize="maxImgSize" v-bind="$attrs" />
+    <VueCropper ref="cropper" style="height: 700px" :fixed :centerBox :autoCrop :maxImgSize v-bind="$attrs" />
     <template #footer>
       <el-space>
         <el-button @click="onPreview">预览</el-button>
@@ -11,7 +11,7 @@
   </el-dialog>
 </template>
 
-<script setup>
+<script setup name="CropperImg">
 import { ref, reactive } from 'vue'
 import { VueCropper } from 'vue-cropper'
 import 'vue-cropper/dist/index.css'

@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="SuperUploadImage">
 import { reactive, inject, computed, onMounted } from 'vue'
 import { ElMessage, formContextKey } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'

@@ -13,6 +13,9 @@ const option = {
   },
   legend: {
     data: ['Email', 'Union Ads', 'Video Ads', 'Search Engine'],
+    textStyle: {
+      color: '#767676',
+    },
   },
   grid: {
     left: '3%',

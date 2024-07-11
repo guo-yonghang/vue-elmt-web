@@ -39,6 +39,9 @@ const option = {
   },
   legend: {
     show: true,
+    textStyle: {
+      color: '#767676',
+    },
   },
   tooltip: {
     trigger: 'axis',

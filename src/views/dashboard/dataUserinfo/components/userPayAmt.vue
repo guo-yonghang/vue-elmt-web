@@ -11,7 +11,11 @@ const option = {
   tooltip: {
     trigger: 'item',
   },
-  legend: {},
+  legend: {
+    textStyle: {
+      color: '#767676',
+    },
+  },
   series: [
     {
       name: '消费金额',

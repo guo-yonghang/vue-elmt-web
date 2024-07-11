@@ -32,6 +32,7 @@ const orderCountList = [
     align-items: center;
     align-content: space-between;
     background-image: linear-gradient(0deg, #cfd9df 0%, #e2ebf0 100%);
+    color: var(--el-color-warning);
     border-radius: 6px;
     margin-right: 10px;
 
@@ -40,19 +41,31 @@ const orderCountList = [
     }
 
     .label {
-      color: #333;
-      font-size: 17px;
+      color: #333333;
+      font-size: 16px;
       width: 100%;
       padding: 5px 12px;
+      font-style: italic;
     }
 
     .value {
-      color: var(--el-color-warning);
       width: 100%;
       flex: 1;
       padding-bottom: 14px;
       font-size: 32px;
       font-weight: bold;
+    }
+  }
+}
+
+.dark {
+  .echarts {
+    .item {
+      background-image: linear-gradient(-225deg, #4d50f3 0%, #31a2d3 100%);
+      color: #fff;
+      .label {
+        color: #fff;
+      }
     }
   }
 }

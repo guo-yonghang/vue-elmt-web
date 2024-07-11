@@ -2,21 +2,21 @@
   <div>
     <el-row :gutter="12">
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-        <el-card header="用户数量变化">
+        <el-card header="用户数量">
           <div class="card-item">
             <UserYearCount />
           </div>
         </el-card>
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-        <el-card header="用户设备来源">
+        <el-card header="用户设备">
           <div class="card-item">
             <UserPlatSource />
           </div>
         </el-card>
       </el-col>
       <el-col :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
-        <el-card header="订单数量变化">
+        <el-card header="订单数量">
           <div class="card-item">
             <OrderYearCount />
           </div>

@@ -19,6 +19,9 @@ const option = {
   },
   legend: {
     data: ['移动端人数', 'PC端人数'],
+    textStyle: {
+      color: '#767676',
+    },
   },
   grid: {
     left: '3%',

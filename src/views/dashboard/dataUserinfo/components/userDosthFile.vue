@@ -17,7 +17,7 @@ const columns = [
     prop: 'fileType',
     label: '文件类型',
     enum: [
-      { label: '文档', value: 1 },
+      { label: '文件', value: 1 },
       { label: '视频', value: 2 },
     ],
   },

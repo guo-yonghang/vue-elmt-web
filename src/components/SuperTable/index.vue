@@ -8,7 +8,9 @@
               <el-space :size="4">
                 <span>{{ item.search?.label || item.label }}</span>
                 <el-tooltip v-if="item.search?.tooltip" :content="item.search?.tooltip" placement="top">
-                  <el-icon><Warning /></el-icon>
+                  <el-icon>
+                    <Warning />
+                  </el-icon>
                 </el-tooltip>
               </el-space>
               <span>&nbsp;:</span>
@@ -62,7 +64,9 @@
             </el-radio>
             <!-- sort -->
             <el-tag v-if="item.type === 'sort'" class="move">
-              <el-icon> <DCaret /></el-icon>
+              <el-icon>
+                <DCaret />
+              </el-icon>
             </el-tag>
           </template>
         </el-table-column>
@@ -114,9 +118,18 @@ const props = defineProps({
   pagination: { type: Boolean, default: true },
   toolButton: { type: Array, default: () => ['refresh', 'setting', 'search'] },
   autoRequest: { type: Boolean, default: true },
-  requestApi: { type: Function, default: () => {} },
-  dataCallBack: { type: Function, default: () => {} },
-  requestError: { type: Function, default: () => {} },
+  requestApi: {
+    type: Function,
+    default: () => {},
+  },
+  dataCallBack: {
+    type: Function,
+    default: () => {},
+  },
+  requestError: {
+    type: Function,
+    default: () => {},
+  },
 })
 const emits = defineEmits(['search', 'reset', 'dargSort'])
 
@@ -208,13 +221,13 @@ provide('enumMap', enumMap)
 const flatColumnsFunc = (columns, flatArr = []) => {
   columns.forEach(async (col) => {
     if (col._children?.length) flatArr.push(...flatColumnsFunc(col._children))
-    flatArr.push(col)
 
     // column 添加默认 isShow && isSetting && isFilterEnum 属性值
-    col.isShow = col.isShow || true
+    col.isShow = true
     col.isSetting = col.isSetting || true
     col.isFilterEnum = col.isFilterEnum || true
 
+    flatArr.push(col)
     // 设置 enumMap
     await setEnumMap(col)
   })

@@ -87,7 +87,7 @@
       </template>
     </el-table>
     <!-- 分页组件 -->
-    <slot nam="pagination">
+    <slot name="pagination">
       <Pagination v-if="pagination" :pageable="pageable" :handleSizeChange="handleSizeChange" :handleCurrentChange="handleCurrentChange" />
     </slot>
   </div>

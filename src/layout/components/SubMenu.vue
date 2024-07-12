@@ -22,6 +22,7 @@
 import { h, resolveComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppStore } from '@/store/index'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 
 defineProps({ menuList: { type: Array, default: () => [] } })
 
@@ -32,6 +33,7 @@ const appStore = useAppStore()
 const RenderIcon = ({ icon }) => {
   if (!icon) return <></>
   if (icon.includes('http')) return <img src={icon} style="width:20px;margin-right:5px;" />
+  if (icon.includes('svg-')) return <SvgIcon name={icon} style="width:24px;height:18px;margin-right:5px;" />
   return <el-icon>{h(resolveComponent(icon))}</el-icon>
 }
 
@@ -50,10 +52,12 @@ const onSubItem = (subItem) => {
 :deep(.el-menu) {
   .el-menu-item {
     border-left: 4px solid transparent;
+
     &.is-active {
       border-color: var(--el-color-primary);
       background-color: var(--el-menu-hover-bg-color);
     }
+
     &:hover {
       background-color: var(--el-menu-border-color) !important;
     }

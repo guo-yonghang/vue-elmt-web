@@ -33,5 +33,3 @@ const option = {
   ],
 }
 </script>
-
-<style scoped lang="scss"></style>

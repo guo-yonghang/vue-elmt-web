@@ -32,5 +32,3 @@ const list = ref([
   },
 ])
 </script>
-
-<style scoped lang="scss"></style>

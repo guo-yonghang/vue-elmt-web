@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia'
-import { DEFAULT_PRIMARY } from '@/config/index'
+import { DEFAULT_PRIMARY } from '@/constants/index'
 
 export const useAppStore = defineStore({
   id: 'system-app',
   state: () => ({
     isPreview: false,
-    layoutRoute: null,
     collapse: false,
     primary: DEFAULT_PRIMARY,
     isDark: false,

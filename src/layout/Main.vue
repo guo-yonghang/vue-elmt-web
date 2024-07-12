@@ -10,14 +10,14 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useAppStore } from '@/store'
+import { useTabStore } from '@/store'
 
-const appStore = useAppStore()
+const tabStore = useTabStore()
 
 //需要缓存的组件名列表
 const keepAliveList = computed(() => {
-  if (!appStore.layoutRoute) return []
-  return getKeepAliveNames(appStore.layoutRoute?.children)
+  if (!tabStore.layoutRoute) return []
+  return getKeepAliveNames(tabStore.layoutRoute?.children)
 })
 
 //获取所有的缓存的列表

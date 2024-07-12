@@ -231,6 +231,6 @@ const tabs = [
 .curve-echarts {
   box-sizing: border-box;
   height: 400px;
-  padding: 0 50px;
+  padding: 0 30px;
 }
 </style>

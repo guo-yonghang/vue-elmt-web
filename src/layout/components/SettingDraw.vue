@@ -22,23 +22,23 @@
     </el-divider>
     <div class="setting-item">
       <span>{{ $t('setting.tabsView') }}</span>
-      <el-switch v-model="showTabs" :active-text="getSwitchText(showTabs)" />
+      <el-switch v-model="showTabs"  />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.tabsIcon') }}</span>
-      <el-switch v-model="showTabsIcon" :active-text="getSwitchText(showTabsIcon)" />
+      <el-switch v-model="showTabsIcon"  />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.pageHeader') }}</span>
-      <el-switch v-model="showHeader" :active-text="getSwitchText(showHeader)" />
+      <el-switch v-model="showHeader"  />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.pageFooter') }}</span>
-      <el-switch v-model="showFooter" :active-text="getSwitchText(showFooter)" />
+      <el-switch v-model="showFooter" />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.waterMark') }}</span>
-      <el-switch v-model="showWaterMark" :active-text="getSwitchText(showWaterMark)" />
+      <el-switch v-model="showWaterMark"  />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.componentSize') }}</span>
@@ -63,13 +63,11 @@
 import { ref, computed, toRefs } from 'vue'
 import { useAppStore, useUserStore } from '@/store/index'
 import { useSetting } from '@/hooks/index'
-import { useI18n } from 'vue-i18n'
-import { PRIMARY_LIST } from '@/config/index'
+import { PRIMARY_LIST } from '@/constants/index'
 import mittBus from '@/utils/mittBus'
 import SwitchDark from './SwitchDark.vue'
 import Language from './Language.vue'
 
-const { t } = useI18n()
 const appStore = useAppStore()
 const userStore = useUserStore()
 const visible = ref(false)
@@ -78,11 +76,6 @@ const { isPreview, primary, comSize, showTabs, showTabsIcon, showHeader, showFoo
 const { updatePrimary } = useSetting()
 
 mittBus.on('openSettings', () => (visible.value = true))
-
-//开关的文本内容
-const getSwitchText = (value) => {
-  return value ? t('setting.show') : t('setting.hide')
-}
 
 //水印内容
 const waterMarkText = computed(() => {

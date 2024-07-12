@@ -46,8 +46,9 @@ router.beforeEach((to, from, next) => {
   nProgress.start()
   const appStore = useAppStore()
   const userStore = useUserStore()
+  const tabStore = useTabStore()
   //路由初始化
-  if (!appStore.layoutRoute) {
+  if (!tabStore.layoutRoute) {
     appStore.isPreview = to.fullPath.indexOf('/preview') === 0
     initLayoutRoute()
     return next({ path: to.fullPath, query: to.query, replace: true })

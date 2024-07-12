@@ -6,6 +6,7 @@ export const useTabStore = defineStore({
   state: () => ({
     homePath: '',
     tabList: [],
+    layoutRoute: null,
   }),
   getters: {},
   actions: {

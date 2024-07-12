@@ -10,11 +10,15 @@
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item :icon="Refresh" @click="onRefresh(index)" v-if="item.path === tabValue">{{ $t('tabs.refresh') }}</el-dropdown-item>
-                <el-dropdown-item :icon="DArrowLeft" @click="tabStore.delTabLeft(index)" v-if="index > 0">{{ $t('tabs.closeLeft') }}</el-dropdown-item>
-                <el-dropdown-item :icon="DArrowRight" @click="tabStore.delTabRight(index, tabValue)" v-if="index < tabStore.tabList.length - 1">{{ $t('tabs.closeRight') }}</el-dropdown-item>
-                <el-dropdown-item :icon="Remove" @click="tabStore.delTabOther(index)">{{ $t('tabs.closeOther') }}</el-dropdown-item>
-                <el-dropdown-item :icon="CircleClose" @click="tabStore.delTabAll">{{ $t('tabs.closeAll') }}</el-dropdown-item>
+                <el-dropdown-item :icon="Refresh" @click="onRefresh(index)" v-if="item.path === tabValue">
+                  {{ $t('tabs.refresh') }}
+                </el-dropdown-item>
+                <el-dropdown-item :icon="DArrowLeft" @click="tabStore.delTabLeft(index)" v-if="index > 0">
+                  {{ $t('tabs.closeLeft') }}
+                </el-dropdown-item>
+                <el-dropdown-item :icon="DArrowRight" @click="tabStore.delTabRight(index, tabValue)" v-if="index < tabStore.tabList.length - 1">{{ $t('tabs.closeRight') }} </el-dropdown-item>
+                <el-dropdown-item :icon="Remove" @click="tabStore.delTabOther(index)">{{ $t('tabs.closeOther') }} </el-dropdown-item>
+                <el-dropdown-item :icon="CircleClose" @click="tabStore.delTabAll">{{ $t('tabs.closeAll') }} </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -30,6 +34,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { Refresh, DArrowLeft, DArrowRight, Remove, CircleClose } from '@element-plus/icons-vue'
 import { useAppStore, useTabStore } from '@/store/index'
 import Sortable from 'sortablejs'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -91,6 +96,7 @@ const onRefresh = (index) => {
 const RenderIcon = ({ icon }) => {
   if (!icon) return <></>
   if (icon.includes('http')) return <img src={icon} class="tab-icon" />
+  if (icon.includes('svg-')) return <SvgIcon name={icon} class="tab-icon" style="width:14px;height:14px" />
   return <el-icon class="tab-icon">{h(resolveComponent(icon))}</el-icon>
 }
 
@@ -118,41 +124,50 @@ onMounted(() => {
   flex: 1;
   background-color: var(--el-bg-color);
   user-select: none;
+
   :deep(.el-tabs) {
     .el-tabs__header {
       box-sizing: border-box;
       height: 40px;
       margin: 0;
       border-bottom: none;
+
       .el-tabs__nav-wrap {
         .el-tabs__nav {
           display: flex;
           border: none;
+
           .el-tabs__item {
             display: flex;
             justify-content: center;
             align-items: center;
             border: none;
+
             &.is-active {
               color: var(--el-color-primary);
               border-bottom: 2px solid var(--el-color-primary);
             }
+
             .el-dropdown {
               height: 100%;
             }
+
             .el-dropdown_content {
               height: 100%;
               display: flex;
               align-items: center;
               color: var(--el-text-color-regular);
+
               .tab-icon {
                 font-size: 14px;
                 height: 14px;
                 margin-right: 4px;
               }
+
               .is-icon-close {
                 margin-top: 1.5px;
               }
+
               &.is-active {
                 color: var(--el-color-primary);
               }

@@ -1,5 +1,5 @@
 import { markRaw } from 'vue'
-import { useAppStore, useTabStore } from '@/store/index'
+import { useTabStore } from '@/store/index'
 import router from '@/router/index'
 import Layout from '@/layout/index.vue'
 import menuList from '@/assets/json/menuList.json'
@@ -9,9 +9,8 @@ const views = import.meta.glob('../views/**/*.vue')
 
 //初始化layout路由
 export const initLayoutRoute = () => {
-  const appStore = useAppStore()
   const tabStore = useTabStore()
-  menuList.push(resultRoutes)
+  menuList.push(resultRoutes) //模拟获取菜单列表
   const defaultChildren = getChilrenRoute(menuList)
   const previewChildren = getChilrenRoute(menuList)
   previewChildren.forEach((item) => {
@@ -27,7 +26,7 @@ export const initLayoutRoute = () => {
     children,
   }
   router.addRoute(layout)
-  appStore.layoutRoute = layout
+  tabStore.layoutRoute = layout
   tabStore.homePath = children[0].path
 }
 

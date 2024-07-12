@@ -6,7 +6,4 @@
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-//nihao
 </script>
-
-<style scoped lang="scss"></style>

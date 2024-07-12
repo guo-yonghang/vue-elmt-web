@@ -4,7 +4,7 @@
     "name": "dashboard",
     "title": "统计报表",
     "type": 1,
-    "icon": "Odometer",
+    "icon": "svg-dashboard",
     "visible": true,
     "idx": 1,
     "children": [
@@ -14,7 +14,7 @@
         "title": "访问数据",
         "type": 2,
         "idx": 1,
-        "icon": "Menu",
+        "icon": "svg-dashboard",
         "keepAlive": true,
         "visible": true,
         "showTab": true,

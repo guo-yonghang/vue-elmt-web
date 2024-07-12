@@ -28,5 +28,3 @@ const handleConfirm = (data) => {
   cropImg.value = data
 }
 </script>
-
-<style scoped lang="scss"></style>

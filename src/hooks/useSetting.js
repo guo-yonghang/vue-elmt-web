@@ -18,8 +18,7 @@ export const useSetting = () => {
   }
   //修改系统语言
   const updateLanguage = () => {
-    const { language } = appStore
-    i18n.locale.value = language
+    i18n.locale.value = appStore.language
   }
   return {
     updatePrimary,

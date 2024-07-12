@@ -1,9 +1,20 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
+import { useDebounceFn } from '@vueuse/core'
+import { HTTP_STATUS_LIST } from '@/constants/index.js'
+
+//防抖弹出错误信息
+const debouncedMessage = useDebounceFn((content) => {
+  ElMessage.error(content)
+}, 500)
 
 const instance = axios.create({
   baseURL: '',
   timeout: 60000,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json;charset=UTF-8',
+  },
 })
 
 instance.interceptors.request.use(
@@ -19,12 +30,18 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     if (response.data.code !== '200') {
-      message.warn(response.data.message)
       return Promise.reject()
     }
     return response.data.data
   },
   (error) => {
+    const { message } = error.message
+    message.includes('timeout') && debouncedMessage('请求超时！请稍后重试')
+    message.includes('Network Error') && debouncedMessage('网络错误！请稍后重试')
+    if (error.response) {
+      const errorItem = HTTP_STATUS_LIST.find((item) => item.code == error.response.status)
+      errorItem && debouncedMessage(errorItem.message)
+    }
     return Promise.reject(error)
   },
 )

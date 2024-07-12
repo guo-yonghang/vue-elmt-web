@@ -9,7 +9,7 @@
       <el-dropdown-menu>
         <el-dropdown-item command="info">
           <el-icon><User /></el-icon>
-          <span>{{ $t('header.infomation') }}</span>
+          <span>{{ $t('header.information') }}</span>
         </el-dropdown-item>
         <el-dropdown-item command="logout">
           <el-icon><SwitchButton /></el-icon>

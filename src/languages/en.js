@@ -20,15 +20,11 @@ export default {
     pageHeader: 'Page header',
     pageFooter: 'Page footer',
     waterMark: 'Water mark',
-    language: 'Language',
+    language: 'English',
     componentSize: 'Component size',
-    show: 'Show',
-    hide: 'Hide_',
-    open: 'Open',
-    shut: 'Shut',
   },
   header: {
-    infomation: 'Infomation',
+    information: 'Information',
     logout: 'Logout',
   },
 }

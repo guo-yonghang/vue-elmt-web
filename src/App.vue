@@ -23,5 +23,3 @@ const locale = computed(() => (appStore.language === 'zh' ? zhCn : en))
 //组件大小
 const size = computed(() => appStore.comSize)
 </script>
-
-<style scoped lang="scss"></style>

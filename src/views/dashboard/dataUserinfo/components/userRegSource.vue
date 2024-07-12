@@ -76,22 +76,6 @@ const option = {
       },
       data: [320, 332, 301, 334, 390, 330, 320],
     },
-    // {
-    //   name: 'Search Engine',
-    //   type: 'line',
-    //   stack: 'Total',
-    //   label: {
-    //     show: true,
-    //     position: 'top',
-    //   },
-    //   areaStyle: {},
-    //   emphasis: {
-    //     focus: 'series',
-    //   },
-    //   data: [820, 932, 901, 934, 1290, 1330, 1320],
-    // },
   ],
 }
 </script>
-
-<style scoped lang="scss"></style>

@@ -52,5 +52,3 @@ const tableData = [
   },
 ]
 </script>
-
-<style scoped lang="scss"></style>

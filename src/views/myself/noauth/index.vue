@@ -3,5 +3,3 @@
 </template>
 
 <script setup name="/myself/noauth"></script>
-
-<style scoped lang="scss"></style>

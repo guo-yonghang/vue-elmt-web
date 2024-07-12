@@ -32,10 +32,11 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { UserFilled } from '@element-plus/icons-vue'
-import { useUserStore } from '@/store/index'
+import { useUserStore, useTabStore } from '@/store/index'
 
 const router = useRouter()
 const userStore = useUserStore()
+const tabStore = useTabStore()
 const formContext = ref()
 const loading = ref(false)
 
@@ -48,7 +49,7 @@ const onLogin = () => {
   formContext.value.validate((valid) => {
     if (valid) {
       userStore.token = 'xxxxxx'
-      router.push({ path: '/layout' })
+      router.push({ path: tabStore.homePath })
     }
   })
 }

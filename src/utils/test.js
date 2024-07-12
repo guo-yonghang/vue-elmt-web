@@ -4,8 +4,8 @@
  * @returns {Boolean}
  */
 export const isHex = (value) => {
-  return /^\#?[0-9A-Fa-f]{6}$/.test(value);
-};
+  return /^\#?[0-9A-Fa-f]{6}$/.test(value)
+}
 
 /**
  * @description 是否为rgb颜色
@@ -15,6 +15,6 @@ export const isHex = (value) => {
  * @returns {Boolean}
  */
 export const isRgb = (r, g, b) => {
-  const reg = /^\d{1,3}$/;
-  return reg.test(r) && reg.test(g) && reg.test(b);
-};
+  const reg = /^\d{1,3}$/
+  return reg.test(r) && reg.test(g) && reg.test(b)
+}

@@ -1,5 +1,5 @@
 <template>
-  <el-switch v-model="appStore.isDark"  @change="updatePrimary" />
+  <el-switch v-model="appStore.isDark" @change="updatePrimary" />
 </template>
 
 <script setup>

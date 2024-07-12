@@ -22,15 +22,15 @@
     </el-divider>
     <div class="setting-item">
       <span>{{ $t('setting.tabsView') }}</span>
-      <el-switch v-model="showTabs"  />
+      <el-switch v-model="showTabs" />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.tabsIcon') }}</span>
-      <el-switch v-model="showTabsIcon"  />
+      <el-switch v-model="showTabsIcon" />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.pageHeader') }}</span>
-      <el-switch v-model="showHeader"  />
+      <el-switch v-model="showHeader" />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.pageFooter') }}</span>
@@ -38,7 +38,7 @@
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.waterMark') }}</span>
-      <el-switch v-model="showWaterMark"  />
+      <el-switch v-model="showWaterMark" />
     </div>
     <div class="setting-item">
       <span>{{ $t('setting.componentSize') }}</span>

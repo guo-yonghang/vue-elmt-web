@@ -1,5 +1,5 @@
 <template>
-  <el-switch v-model="appStore.language" inactive-value="zh" active-value="en"  @change="updateLanguage" />
+  <el-switch v-model="appStore.language" inactive-value="zh" active-value="en" @change="updateLanguage" />
 </template>
 
 <script setup>

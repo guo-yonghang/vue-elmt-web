@@ -8,8 +8,9 @@ import { ref, reactive, computed, toRefs } from 'vue'
  * @param {Function} dataCallBack 对后台返回的数据进行处理的方法 (非必传)
  * @param {Function} requestError 请求失败的处理方法 (非必传)
  * */
-export const useTableHook = (api, initParam = {}, isPageable, dataCallBack, requestError) => {
+export const useTableHook = (api, initParam = {}, isPageable, paramCallBack, dataCallBack, requestError) => {
   const state = reactive({
+    loading: false,
     tableData: [],
     pageable: {
       pageNum: 1,
@@ -45,17 +46,23 @@ export const useTableHook = (api, initParam = {}, isPageable, dataCallBack, requ
    */
   const getTableList = async () => {
     if (!api) return
+    if (state.loading) return
+    state.loading = true
     try {
       Object.assign(state.totalParam, initParam, isPageable ? pageParam.value : {})
-      let { data } = await api({ ...state.searchInitParam, ...state.totalParam })
+      let params = { ...state.searchInitParam, ...state.totalParam }
+      paramCallBack && (params = paramCallBack(params))
+      let data = await api(params)
       dataCallBack && (data = dataCallBack(data))
       state.tableData = isPageable ? data.list : data
       if (isPageable) {
-        const { pageNum, pageSize, total } = data
-        updatePageable({ pageNum, pageSize, total })
+        const { total } = data
+        updatePageable({ total })
       }
     } catch (error) {
       requestError && requestError(error)
+    } finally {
+      state.loading = false
     }
   }
 

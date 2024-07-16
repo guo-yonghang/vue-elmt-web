@@ -121,6 +121,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .tabs-box {
+  width: 0;
   flex: 1;
   background-color: var(--el-bg-color);
   user-select: none;

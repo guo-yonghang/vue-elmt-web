@@ -31,7 +31,7 @@ const appStore = useAppStore()
 
 //菜单项图标
 const RenderIcon = ({ icon }) => {
-  if (!icon) return <></>
+  if (!icon) return <div style="width:24px;height:18px;margin-right:5px;"></div>
   if (icon.includes('http')) return <img src={icon} style="width:20px;margin-right:5px;" />
   if (icon.includes('svg-')) return <SvgIcon name={icon} style="width:24px;height:18px;margin-right:5px;" />
   return <el-icon>{h(resolveComponent(icon))}</el-icon>

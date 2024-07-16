@@ -62,5 +62,5 @@ export function handleRowAccordingToProp(row, prop) {
 export function formatValue(callValue) {
   // 如果当前值为数组，使用 / 拼接（根据需求自定义）
   if (Array.isArray(callValue)) return callValue.length ? callValue.join(' / ') : '--'
-  return callValue ?? '--'
+  return callValue || '--'
 }

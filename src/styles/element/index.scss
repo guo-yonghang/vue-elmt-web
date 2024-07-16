@@ -26,3 +26,8 @@ $--colors: (
 );
 
 @use './dark.scss';
+
+.el-image {
+  display: block;
+  margin: auto;
+}

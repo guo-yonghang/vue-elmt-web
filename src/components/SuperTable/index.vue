@@ -46,7 +46,7 @@
         </slot>
       </el-space>
     </div>
-    <el-table ref="tableContext" v-bind="$attrs" :data="processTableData" :rowKey="rowKey" @selection-change="selectionChange">
+    <el-table ref="tableContext" v-loading="loading" v-bind="$attrs" :data="processTableData" :rowKey="rowKey" @selection-change="selectionChange">
       <!-- 默认插槽 -->
       <slot />
       <!-- 列配置 -->
@@ -118,26 +118,19 @@ const props = defineProps({
   pagination: { type: Boolean, default: true },
   toolButton: { type: Array, default: () => ['refresh', 'setting', 'search'] },
   autoRequest: { type: Boolean, default: true },
-  requestApi: {
-    type: Function,
-    default: () => {},
-  },
-  dataCallBack: {
-    type: Function,
-    default: () => {},
-  },
-  requestError: {
-    type: Function,
-    default: () => {},
-  },
+  requestApi: Function,
+  paramCallBack: Function,
+  dataCallBack: Function,
+  requestError: Function,
 })
 const emits = defineEmits(['search', 'reset', 'dargSort'])
 
 //使用hook函数
-const { tableData, pageable, searchParam, searchInitParam, getTableList, search, reset, handleSizeChange, handleCurrentChange } = useTableHook(
+const { tableData, pageable, loading, searchParam, searchInitParam, getTableList, search, reset, handleSizeChange, handleCurrentChange } = useTableHook(
   props.requestApi,
   props.initParams,
   props.pagination,
+  props.paramCallBack,
   props.dataCallBack,
   props.requestError,
 )
@@ -223,9 +216,9 @@ const flatColumnsFunc = (columns, flatArr = []) => {
     if (col._children?.length) flatArr.push(...flatColumnsFunc(col._children))
 
     // column 添加默认 isShow && isSetting && isFilterEnum 属性值
-    col.isShow = true
-    col.isSetting = col.isSetting || true
-    col.isFilterEnum = col.isFilterEnum || true
+    col.isShow = col.isShow ?? true
+    col.isSetting = col.isSetting ?? true
+    col.isFilterEnum = col.isFilterEnum ?? true
 
     flatArr.push(col)
     // 设置 enumMap

@@ -13,6 +13,7 @@ interface SuperTableProps {
   toolButton?: ('refresh' | 'setting' | 'search')[] | boolean //是否显示表格功能按钮
   autoRequest?: boolean //是否自动请求表格数据的api
   requestApi?: (params: any) => Promise<any> //请求表格数据的api
+  paramCallBack?: (data: any) => any //参数的请求前置处理
   dataCallBack?: (data: any) => any //返回数据的回调函数，可以对数据进行处理
   requestError?: (params: any) => void //表格数据api请求错误回调
 }

@@ -17,3 +17,8 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 http://localhost:5173/#/table/superTable
 http://localhost:5173/#/preview/table/superTable
 ```
+
+```
+需注意SuperTable/common/hooks.js中requestApi的返回值格式
+需注意SuperTable/index.vue中emumValue返回值的格式
+```

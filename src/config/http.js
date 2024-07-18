@@ -35,7 +35,7 @@ instance.interceptors.response.use(
     return response.data.data
   },
   (error) => {
-    const { message } = error.message
+    const { message } = error
     message.includes('timeout') && debouncedMessage('请求超时！请稍后重试')
     message.includes('Network Error') && debouncedMessage('网络错误！请稍后重试')
     if (error.response) {

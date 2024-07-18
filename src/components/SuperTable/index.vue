@@ -202,9 +202,9 @@ const enumMap = ref(new Map())
 const setEnumMap = async ({ prop, enum: enumValue }) => {
   if (!enumValue) return
   if (enumMap.value.has(prop) && (typeof enumValue === 'function' || enumMap.value.get(prop) === enumValue)) return
-  if (typeof enumMap !== 'function') return enumMap.value.set(prop, unref(enumValue))
+  if (typeof enumValue !== 'function') return enumMap.value.set(prop, unref(enumValue))
   enumMap.value.set(prop, [])
-  const { data } = await enumValue()
+  const data = await enumValue()
   enumMap.value.set(prop, data)
 }
 

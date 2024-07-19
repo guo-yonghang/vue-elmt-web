@@ -10,7 +10,7 @@
             </template>
           </el-image>
           <!-- 状态角标 -->
-          <div :class="['status', item.status]" v-if="item.status !== 'uploading'">
+          <div :class="['status', item.status]" v-if="item.status && item.status !== 'uploading'">
             <el-icon>
               <Close v-if="item.status === 'fail'" />
               <Check v-else />
@@ -25,7 +25,7 @@
           </div>
         </div>
         <!-- 表单内容 -->
-        <el-input v-if="useInput && item.status === 'success'" v-model="item.name" :disabled="_disabled" placeholder="请输入名称" />
+        <el-input v-if="useInput && (item.status === 'success' || !item.status)" v-model="item.name" :disabled="_disabled" placeholder="请输入名称" />
       </div>
     </template>
     <label :for="inputId" class="upload-btn" @click="onLabel">
@@ -40,7 +40,7 @@
 <script setup name="SuperUploadImage">
 import { reactive, inject, computed, onMounted } from 'vue'
 import { ElMessage, formContextKey } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Close, Check, ZoomIn, Delete } from '@element-plus/icons-vue'
 import { generateId, sleep } from '@/utils'
 import Sortable from 'sortablejs'
 import CropperImg from '@/components/CropperImg/index.vue'
@@ -107,16 +107,17 @@ const onPreview = (index) => {
 //删除图片
 const onRemove = (index) => {
   const [current] = fileList.value.splice(index, 1)
-  current.url.includes('blob:') && URL.revokeObjectURL(current.url)
+  current.url.includes('http:') && URL.revokeObjectURL(current.url)
 }
 
 //裁剪完成
 const onCropConfirm = (data) => {
   fileList.value.push({
     id: generateId(6, 'itemId'),
+    url: URL.createObjectURL(data),
+    row: new File([data], generateId() + '.jpg', { type: 'image/jpg' }),
     name: '',
-    url: data,
-    status: 'success',
+    status: '',
   })
 }
 
@@ -134,9 +135,10 @@ const onFileChange = (event) => {
     } else {
       fileList.value.push({
         id: generateId(6, 'itemId'),
-        name: file.name,
         url,
-        status: 'success',
+        row: file,
+        name: file.name,
+        status: '',
       })
     }
     event.target.value = ''
@@ -145,11 +147,12 @@ const onFileChange = (event) => {
 
 //开始上传
 const handleUpload = () => {
-  const reqs = []
-  fileList.value.forEach(() => {
-    reqs.push(sleep(1000))
+  fileList.value.forEach((item) => {
+    item.status = 'uploading'
+    sleep(1000).then(() => {
+      item.status = 'success'
+    })
   })
-  return Promise.all(reqs)
 }
 
 defineExpose({

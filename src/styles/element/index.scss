@@ -27,6 +27,11 @@ $--colors: (
 
 @use './dark.scss';
 
+.el-message,
+.el-notification {
+  z-index: 2070 !important;
+}
+
 .el-image {
   display: block;
   margin: auto;

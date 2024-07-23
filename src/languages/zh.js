@@ -18,9 +18,9 @@ export default {
     language: '英文模式',
     tabsView: '标签栏',
     tabsIcon: '标签栏图标',
-    pageHeader: '页头',
-    pageFooter: '页脚',
-    waterMark: '水印',
+    pageHeader: '显示页头',
+    pageFooter: '显示页脚',
+    waterMark: '显示水印',
     componentSize: '组件大小',
   },
   header: {

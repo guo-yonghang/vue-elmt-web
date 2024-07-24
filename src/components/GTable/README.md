@@ -4,7 +4,7 @@
 import { TableColumnCtx } from 'element-plus'
 import { Ref, VNode } from 'vue'
 
-interface SuperTableProps {
+interface GTableProps {
   rowKey?: string //行的key
   columns: ColumnType[] //列配置项
   data?: any[] //静态data数据

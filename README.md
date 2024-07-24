@@ -19,6 +19,6 @@ http://localhost:5173/#/preview/table/superTable
 ```
 
 ```
-需注意SuperTable/common/hooks.js中requestApi的返回值格式
-需注意SuperTable/index.vue中emumValue返回值的格式
+需注意GTable/common/hooks.js中requestApi的返回值格式
+需注意GTable/index.vue中emumValue返回值的格式
 ```

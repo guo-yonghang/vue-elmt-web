@@ -98,9 +98,9 @@
   <ColSetting v-if="showToolButton('setting')" ref="colsetContext" v-model:col-setting="colSetting" />
 </template>
 
-<script setup name="SuperTable">
+<script setup name="GTable">
 import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
-import { Search, Refresh, Delete, ArrowDown, ArrowUp, Operation } from '@element-plus/icons-vue'
+import { Search, Refresh, Delete, ArrowDown, ArrowUp, Operation, Warning, DCaret } from '@element-plus/icons-vue'
 import { useElementSize } from '@vueuse/core'
 import { useTableHook, useSelection } from './common/hooks'
 import { handleProp } from './common/util'

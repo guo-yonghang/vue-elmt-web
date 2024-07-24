@@ -1,6 +1,6 @@
 <template>
   <div class="table-box">
-    <SuperTable :data="tableData" :columns="columns" stripe :auto-request="false">
+    <GTable :data="tableData" :columns="columns" stripe :auto-request="false">
       <template #tableHeader="scope">
         <el-button type="primary" :icon="CirclePlus">新增用户</el-button>
         <el-button type="danger" :icon="Delete" plain :disabled="!scope.isSelected"> 删除用户</el-button>
@@ -24,7 +24,7 @@
         <el-button type="primary" link :icon="Refresh">重置密码</el-button>
         <el-button type="primary" link :icon="Delete">删除</el-button>
       </template>
-    </SuperTable>
+    </GTable>
   </div>
 </template>
 
@@ -33,7 +33,7 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { CirclePlus, Delete, View, EditPen, Refresh } from '@element-plus/icons-vue'
-import SuperTable from '@/components/SuperTable/index.vue'
+import GTable from '@/components/GTable/index.vue'
 
 const router = useRouter()
 const statusAuth = ref(true)

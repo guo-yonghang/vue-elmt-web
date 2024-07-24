@@ -1,15 +1,15 @@
 <template>
   <div class="full no-card">
-    <SuperTable :data="tableData" :columns="columns" stripe :auto-request="false" :tool-button="[]" :pagination="false">
+    <GTable :data="tableData" :columns="columns" stripe :auto-request="false" :tool-button="[]" :pagination="false">
       <template #operation="{ row }">
         <el-button type="primary" link>查看</el-button>
       </template>
-    </SuperTable>
+    </GTable>
   </div>
 </template>
 
 <script setup>
-import SuperTable from '@/components/SuperTable/index.vue'
+import GTable from '@/components/GTable/index.vue'
 
 //列配置
 const columns = [

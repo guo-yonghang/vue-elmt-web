@@ -167,6 +167,7 @@ const showCollapse = computed(() => {
 const processTableData = computed(() => {
   if (!props.data) return tableData.value
   if (!props.pagination) return props.data
+  pageable.value.total = props.data.length
   return props.data.slice((pageable.value.pageNum - 1) * pageable.value.pageSize, pageable.value.pageSize * pageable.value.pageNum)
 })
 

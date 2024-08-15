@@ -1,3 +1,6 @@
+import * as XLSX from 'xlsx'
+import { cloneDeep } from 'lodash'
+
 /**
  * @description 处理 prop，当 prop 为多级嵌套时 返回最后一级 prop avatar.src
  * @param {String} prop 当前 prop
@@ -63,4 +66,42 @@ export function formatValue(callValue) {
   // 如果当前值为数组，使用 / 拼接（根据需求自定义）
   if (Array.isArray(callValue)) return callValue.length ? callValue.join(' / ') : '--'
   return callValue || '--'
+}
+
+/**
+ * @description 将GTable的数据导出为表格文件
+ * @param {Array} flatColumns 表格列配置项
+ * @param {Array} selectedList 表格数据
+ * */
+export function exportXlsx(flatColumns, selectedList) {
+  const cols = cloneDeep(flatColumns)
+  const tdata = cloneDeep(selectedList)
+  //开始处理数据
+  const wids = []
+  const header = []
+  let data = tdata.map(() => ({}))
+  cols.forEach((col) => {
+    if (col.isShow && !col.type && col.prop !== 'operation') {
+      wids.push(col.width * 0.8 || 96)
+      header.push(col.label)
+      data.forEach((item, index) => {
+        const dataItem = tdata[index]
+        if (col.enum) {
+          item[col.prop] = filterEnum(dataItem[col.prop], col.enum, col.fieldNames)
+        } else {
+          item[col.prop] = handleRowAccordingToProp(dataItem, col.prop)
+        }
+        if (item[col.prop] === '--') item[col.prop] = ''
+      })
+    }
+  })
+  data = data.map((item) => Object.values(item))
+  //设置单元格内容
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.aoa_to_sheet([header, ...data])
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1')
+  ws['!cols'] = wids.map((item) => {
+    return { wpx: item }
+  })
+  XLSX.writeFile(wb, '导出数据.xlsx')
 }

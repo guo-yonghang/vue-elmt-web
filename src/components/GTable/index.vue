@@ -24,7 +24,7 @@
       <el-button :icon="Search" type="primary" @click="_search">搜索</el-button>
       <el-button :icon="Delete" @click="_reset">重置</el-button>
       <el-button v-if="showCollapse" type="primary" link @click="collapsed = !collapsed">
-        <!-- {{ collapsed ? '展开' : '合并' }} -->
+        {{ collapsed ? '展开' : '收起' }}
         <el-icon class="el-icon--right">
           <component :is="collapsed ? ArrowDown : ArrowUp"></component>
         </el-icon>
@@ -101,9 +101,10 @@
 <script setup name="GTable">
 import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
 import { Search, Refresh, Delete, ArrowDown, ArrowUp, Operation, Warning, DCaret } from '@element-plus/icons-vue'
-import { useElementSize } from '@vueuse/core'
+import { useElementSize, useElementVisibility } from '@vueuse/core'
 import { useTableHook, useSelection } from './common/hooks'
-import { handleProp } from './common/util'
+import { handleProp, exportXlsx } from './common/util'
+import { ElMessage } from 'element-plus'
 import Sortable from 'sortablejs'
 import TableColumn from './components/TableColumn.vue'
 import Pagination from './components/Pagination.vue'
@@ -161,6 +162,20 @@ const showToolButton = (key) => {
 const { width } = useElementSize(formContext)
 const showCollapse = computed(() => {
   return searchColumns.value.length * 370 > width.value
+})
+
+//根据组件是否展示绑定回车事件
+const tableVisible = useElementVisibility(tableContext)
+
+function handleEnter(e) {
+  e.code === 'Enter' && tableVisible.value && _search()
+}
+
+onBeforeMount(() => {
+  document.addEventListener('keyup', handleEnter, false)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('keyup', handleEnter)
 })
 
 //表格数据初处理
@@ -267,6 +282,13 @@ const _reset = () => {
 //清空选中数据列表
 const clearSelection = () => tableContext.value.clearSelection()
 
+//将GTable的数据导出为表格
+const handleExport = () => {
+  if (!selectedList.value.length) return ElMessage.warning('请选择要导出的数据')
+  exportXlsx(flatColumns.value, selectedList.value)
+  clearSelection()
+}
+
 defineExpose({
   tableContext,
   tableData: processTableData,
@@ -284,6 +306,7 @@ defineExpose({
   isSelected,
   selectedList,
   selectedListIds,
+  handleExport,
 })
 </script>
 

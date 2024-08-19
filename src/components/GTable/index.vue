@@ -99,7 +99,7 @@
 </template>
 
 <script setup name="GTable">
-import { ref, reactive, unref, computed, onMounted, provide } from 'vue'
+import { ref, reactive, unref, computed, onMounted, provide, onBeforeMount, onBeforeUnmount } from 'vue'
 import { Search, Refresh, Delete, ArrowDown, ArrowUp, Operation, Warning, DCaret } from '@element-plus/icons-vue'
 import { useElementSize, useElementVisibility } from '@vueuse/core'
 import { useTableHook, useSelection } from './common/hooks'

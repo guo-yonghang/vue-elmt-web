@@ -9,10 +9,11 @@
 </template>
 
 <script setup>
+import { reactive } from 'vue'
 import GTable from '@/components/GTable/index.vue'
 
 //列配置
-const columns = [
+const columns = reactive([
   {
     prop: 'fileType',
     label: '文件类型',
@@ -25,7 +26,7 @@ const columns = [
   { prop: 'email', label: '邮箱' },
   { prop: 'progress', label: '完成情况' },
   { prop: 'operation', label: '操作', fixed: 'right', width: 80 },
-]
+])
 
 //表格数据
 const tableData = [

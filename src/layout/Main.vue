@@ -17,22 +17,8 @@ const tabStore = useTabStore()
 //需要缓存的组件名列表
 const keepAliveList = computed(() => {
   if (!tabStore.layoutRoute) return []
-  return getKeepAliveNames(tabStore.layoutRoute?.children)
+  return tabStore.tabList.map((item) => item.path.split('/:')[0])
 })
-
-//获取所有的缓存的列表
-const getKeepAliveNames = (list = []) => {
-  const result = []
-  list.forEach((item) => {
-    if (item.meta?.type === 2 && item.meta?.keepAlive) {
-      result.push(item.name)
-    }
-    if (item.meta?.type !== 2 && item.children.length) {
-      result.push(...getKeepAliveNames(item.children))
-    }
-  })
-  return result
-}
 </script>
 
 <style lang="scss" scoped></style>

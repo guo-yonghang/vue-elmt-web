@@ -283,9 +283,9 @@ const _reset = () => {
 const clearSelection = () => tableContext.value.clearSelection()
 
 //将GTable的数据导出为表格
-const handleExport = () => {
+const handleExport = (fileName = '') => {
   if (!selectedList.value.length) return ElMessage.warning('请选择要导出的数据')
-  exportXlsx(flatColumns.value, selectedList.value)
+  exportXlsx(flatColumns.value, selectedList.value, fileName)
   clearSelection()
 }
 

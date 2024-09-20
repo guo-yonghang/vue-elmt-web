@@ -13,7 +13,7 @@ export const handleProp = (prop) => {
 
 /**
  * @description 根据枚举列表查询当需要的数据（如果指定了 label 和 value 的 key值，会自动识别格式化）
- * @param {String} callValue 当前单元格值
+ * @param {String} cellValue 当前单元格值
  * @param {Array} enumData 字典列表
  * @param {Array} fieldNames label && value && children 的 key 值
  * @param {String} type 过滤类型（目前只有 tag）
@@ -35,13 +35,13 @@ export const filterEnum = (cellValue, enumData, fieldNames, type) => {
 }
 
 /**
- * @description 递归查找 callValue 对应的 enum 值
+ * @description 递归查找 cellValue 对应的 enum 值
  * */
-export function findItemNested(enumData, callValue, value, children) {
+export function findItemNested(enumData, cellValue, value, children) {
   return enumData.reduce((accumulator, current) => {
     if (accumulator) return accumulator
-    if (current[value] === callValue) return current
-    if (current[children]) return findItemNested(current[children], callValue, value, children)
+    if (current[value] === cellValue) return current
+    if (current[children]) return findItemNested(current[children], cellValue, value, children)
   }, null)
 }
 
@@ -59,21 +59,22 @@ export function handleRowAccordingToProp(row, prop) {
 
 /**
  * @description 处理 ProTable 值为数组 || 无数据
- * @param {*} callValue 需要处理的值
+ * @param {*} cellValue 需要处理的值
  * @returns {String}
  * */
-export function formatValue(callValue) {
+export function formatValue(cellValue) {
   // 如果当前值为数组，使用 / 拼接（根据需求自定义）
-  if (Array.isArray(callValue)) return callValue.length ? callValue.join(' / ') : '--'
-  return callValue || '--'
+  if (Array.isArray(cellValue)) return cellValue.length ? cellValue.join(' / ') : '--'
+  return cellValue === undefined || cellValue === null || cellValue === '' ? '--' : cellValue
 }
 
 /**
  * @description 将GTable的数据导出为表格文件
  * @param {Array} flatColumns 表格列配置项
  * @param {Array} selectedList 表格数据
+ * @param {String} fileName 文件名称
  * */
-export function exportXlsx(flatColumns, selectedList) {
+export function exportXlsx(flatColumns, selectedList, fileName) {
   const cols = cloneDeep(flatColumns)
   const tdata = cloneDeep(selectedList)
   //开始处理数据
@@ -103,5 +104,5 @@ export function exportXlsx(flatColumns, selectedList) {
   ws['!cols'] = wids.map((item) => {
     return { wpx: item }
   })
-  XLSX.writeFile(wb, '导出数据.xlsx')
+  XLSX.writeFile(wb, `${fileName}.xlsx` || '导出数据.xlsx')
 }

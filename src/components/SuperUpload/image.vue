@@ -1,33 +1,35 @@
 <template>
-  <div class="upload-box" :id="componentId">
-    <template v-for="(item, index) in fileList" :key="item.id || generateId(6, 'itemId')">
-      <div class="upload-item">
-        <div class="upload-item__content">
-          <!-- 图片内容 -->
-          <el-image :src="item.url" fit="contain" v-loading="item.status === 'uploading'">
-            <template #error>
-              <el-icon><Picture /></el-icon>
-            </template>
-          </el-image>
-          <!-- 状态角标 -->
-          <div :class="['status', item.status]" v-if="item.status && item.status !== 'uploading'">
-            <el-icon>
-              <Close v-if="item.status === 'fail'" />
-              <Check v-else />
-            </el-icon>
+  <div class="upload-box">
+    <div class="upload-box_list" :id="componentId">
+      <template v-for="(item, index) in fileList" :key="item.id || generateId(6, 'itemId')">
+        <div class="upload-item">
+          <div class="upload-item__content">
+            <!-- 图片内容 -->
+            <el-image :src="item.url" fit="contain" v-loading="item.status === 'uploading'">
+              <template #error>
+                <el-icon><Picture /></el-icon>
+              </template>
+            </el-image>
+            <!-- 状态角标 -->
+            <div :class="['status', item.status]" v-if="item.status && item.status !== 'uploading'">
+              <el-icon>
+                <Close v-if="item.status === 'fail'" />
+                <Check v-else />
+              </el-icon>
+            </div>
+            <!-- 操作遮罩 -->
+            <div class="oprate" v-if="item.status !== 'uploading'">
+              <el-space>
+                <el-icon @click="onPreview(index)"><ZoomIn /></el-icon>
+                <el-icon @click="onRemove(index)" v-if="!_disabled"><Delete /></el-icon>
+              </el-space>
+            </div>
           </div>
-          <!-- 操作遮罩 -->
-          <div class="oprate" v-if="item.status !== 'uploading'">
-            <el-space>
-              <el-icon @click="onPreview(index)"><ZoomIn /></el-icon>
-              <el-icon @click="onRemove(index)" v-if="!_disabled"><Delete /></el-icon>
-            </el-space>
-          </div>
+          <!-- 表单内容 -->
+          <el-input v-if="useInput && (item.status === 'success' || !item.status)" v-model="item.name" :disabled="_disabled" placeholder="请输入名称" />
         </div>
-        <!-- 表单内容 -->
-        <el-input v-if="useInput && (item.status === 'success' || !item.status)" v-model="item.name" :disabled="_disabled" placeholder="请输入名称" />
-      </div>
-    </template>
+      </template>
+    </div>
     <label :for="inputId" class="upload-btn" @click="onLabel">
       <el-icon><Plus /></el-icon>
       <input :id="inputId" type="file" :accept="accept" :multiple="!cropper" @change="onFileChange" v-if="!_disabled && fileList.length < limit" />
@@ -46,7 +48,7 @@ import Sortable from 'sortablejs'
 import CropperImg from '@/components/CropperImg/index.vue'
 
 //组件id
-const componentId = generateId(6, 'upload-box')
+const componentId = generateId(6, 'upload')
 
 //表单id
 const inputId = generateId(6, 'input')
@@ -182,6 +184,10 @@ onMounted(() => {
 .upload-box {
   display: flex;
   flex-wrap: wrap;
+  .upload-box_list {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 //单个图片展示
 .upload-item {

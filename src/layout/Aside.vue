@@ -11,7 +11,7 @@
     </el-scrollbar>
   </div>
   <div class="collapse-box flxc">
-    <el-button class="fs-22" :icon="appStore.collapse ? 'Expand' : 'Fold'" text size="large" circle @click="onCollapse" />
+    <el-button :icon="appStore.collapse ? 'Expand' : 'Fold'" text size="large" circle @click="onCollapse" />
   </div>
 </template>
 
@@ -67,5 +67,8 @@ const onCollapse = () => {
 .collapse-box {
   width: 55px;
   height: 55px;
+  .el-button {
+    font-size: 22px;
+  }
 }
 </style>

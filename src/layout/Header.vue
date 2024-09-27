@@ -3,7 +3,7 @@
   <span v-else></span>
   <div class="oprate-box">
     <el-space>
-      <el-button class="fs-22" icon="Setting" text circle @click="onSettings" />
+      <el-button icon="Setting" text circle @click="onSettings" />
       <UserContent />
     </el-space>
   </div>
@@ -24,5 +24,8 @@ const onSettings = () => mittBus.emit('openSettings')
 <style lang="scss" scoped>
 .oprate-box {
   padding: 0 15px;
+  .el-button {
+    font-size: 22px;
+  }
 }
 </style>

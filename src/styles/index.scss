@@ -7,9 +7,3 @@
 
 @import 'element-plus/dist/index.css';
 @import 'nprogress/nprogress.css';
-
-@for $i from 12 through 30 {
-  .fs-#{$i} {
-    font-size: #{$i}px !important;
-  }
-}
